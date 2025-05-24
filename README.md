@@ -1,59 +1,64 @@
-# StudentScoreFeAngular
-
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.7.
-
-## Development server
-
-To start a local development server, run:
-
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+student-score-fe-angular/
+├── src/
+│   ├── app/
+│   │   ├── core/                        # Cấu hình lõi, service, guard, interceptor
+│   │   │   ├── services/               # Http services: Auth, User, Score...
+│   │   │   ├── guards/                 # AuthGuard, RoleGuard
+│   │   │   ├── interceptors/           # JWT Interceptor, Error Handler
+│   │   │   └── core.module.ts          # Module chỉ import 1 lần ở App
+│   │   │
+│   │   ├── shared/                     # Component dùng chung
+│   │   │   ├── components/             # Header, Footer, Sidebar, Table, Modal...
+│   │   │   ├── pipes/                  # Custom pipes
+│   │   │   ├── directives/             # Custom directives
+│   │   │   └── shared.module.ts
+│   │   │
+│   │   ├── layouts/                    # Giao diện khung
+│   │   │   ├── public-layout/          # Layout cho Login, Landing
+│   │   │   │   ├── public-layout.component.ts|html|scss
+│   │   │   ├── private-layout/         # Layout cho Dashboard & hệ thống
+│   │   │   │   ├── private-layout.component.ts|html|scss
+│   │   │
+│   │   ├── pages/
+│   │   │   ├── landing/                # Trang giới thiệu
+│   │   │   ├── login/                  # Trang đăng nhập
+│   │   │   ├── dashboard/              # Trang trung tâm (tùy vai trò)
+│   │   │   ├── change-password/        # Đổi mật khẩu
+│   │   │
+│   │   │   ├── admin/                  # Quản trị viên
+│   │   │   │   ├── accounts/           # Quản lý tài khoản
+│   │   │   │   ├── departments/        # Quản lý khoa
+│   │   │   │   ├── teachers/           # Quản lý giảng viên
+│   │   │   │   ├── students/           # Quản lý sinh viên
+│   │   │   │   ├── courses/            # Quản lý học phần
+│   │   │   │   ├── course-classes/     # Lớp học phần
+│   │   │   │   ├── registrations/      # Đăng ký hộ
+│   │   │   │   ├── schedules/          # Lịch học
+│   │   │   │   ├── reports/            # Thống kê, báo cáo
+│   │   │
+│   │   │   ├── lecturer/               # Giảng viên
+│   │   │   │   ├── course-classes/     # Danh sách lớp dạy
+│   │   │   │   ├── scores/             # Nhập điểm
+│   │   │   │   ├── reports/            # Thống kê lớp học
+│   │   │
+│   │   │   ├── student/                # Sinh viên
+│   │   │   │   ├── course-classes/     # Đăng ký học phần
+│   │   │   │   ├── schedules/          # Lịch học
+│   │   │   │   ├── scores/             # Xem điểm
+│   │   │
+│   │   ├── 
+│   │   ├── app.component.ts|html|scss # Gốc ứng dụng
+│   │   └── app.routes.ts             # App 
+│   │
+│   ├── assets/
+│   │   ├── images/
+│   │   └── styles/
+│   │       └── _variables.scss        # SCSS chung
+│   └── environments/
+│       ├── environment.ts             # Môi trường dev
+│       └── environment.prod.ts        # Môi trường prod
+│
+├── angular.json
+├── package.json
+├── tsconfig.app.json
+└── README.md
