@@ -1,0 +1,62 @@
+<div class="from-dialog">
+  <h2>Thêm khoa mới</h2>
+
+  <form
+    [formGroup]="createFormData"
+    (ngSubmit)="onSubmit()"
+    class="form-container"
+  >
+    <div class="form-group">
+      <label for="tenDangNhap">Mã khoa:</label>
+      <input type="text" id="tenKhoa" formControlName="makhoa" />
+      <div
+        *ngIf="
+          createFormData.get('makhoa')?.invalid &&
+          createFormData.get('makhoa')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Mã khoa là bắt buộc.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="tenDangNhap">Tên khoa:</label>
+      <input type="text" id="tenKhoa" formControlName="tenKhoa" />
+      <div
+        *ngIf="
+          createFormData.get('tenKhoa')?.invalid &&
+          createFormData.get('tenKhoa')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Tên khoa là bắt buộc.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="idPhanQuyen">Mô tả:</label>
+      <input type="text" placeholder="Mô tả về khoa" formControlName="mota" />
+
+      <div
+        *ngIf="
+          createFormData.get('idPhanQuyen')?.invalid &&
+          createFormData.get('idPhanQuyen')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Vui lòng nhập mô tả
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" [disabled]="createFormData.invalid">
+        Thêm mới
+      </button>
+      <button type="button" (click)="onCancel()">Hủy</button>
+    </div>
+  </form>
+</div>

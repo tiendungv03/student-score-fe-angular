@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../core/services/auth.service';
 // import { jwtDecode } from 'jwt-decode';
 import { jwtDecode } from 'jwt-decode'; // Thư viện để giải mã JWT token
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -21,12 +22,12 @@ import { jwtDecode } from 'jwt-decode'; // Thư viện để giải mã JWT toke
 })
 export class LoginComponent {
   loginForm: FormGroup;
-
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {
     this.loginForm = this.fb.group({
       studentId: ['', Validators.required],
@@ -39,23 +40,26 @@ export class LoginComponent {
 
     const studentId: string = this.loginForm.get('studentId')?.value;
     const password: string = this.loginForm.get('password')?.value;
-    // console.log('Đăng nhập với mã sinh viên:', studentId);
-    // console.log('Mật khẩu:', password);
+    console.log('Đăng nhập với mã sinh viên:', studentId);
+    console.log('Mật khẩu:', password);
 
     if (typeof studentId !== 'string' || typeof password !== 'string') {
-      alert('Vui lòng nhập đầy đủ thông tin.');
+      this.showNotification('Vui lòng nhập đầy đủ thông tin.', 'warn');
       return;
     }
 
     this.userService.login(studentId, password).subscribe({
       next: (response) => {
-        console.log('Đăng nhập thành công:', response);
+        // console.log('Đăng nhập thành công:', response);
         const token = response?.token;
         // const role = response?.role;
         // console.log('role:', role);
         if (!token) {
-          console.error('Không có token trong phản hồi đăng nhập');
-          alert('Đăng nhập không thành công, vui lòng thử lại!');
+          // console.error('Không có token trong phản hồi đăng nhập');
+          this.showNotification(
+            'Đăng nhập không thành công, vui lòng thử lại!',
+            'error'
+          );
           return;
         }
 
@@ -69,7 +73,7 @@ export class LoginComponent {
             'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
           ];
 
-        console.log('Decoded token:', decodedToken);
+        // console.log('Decoded token:', decodedToken);
         console.log('User name:', userName);
         console.log('User role:', userRole);
 
@@ -95,12 +99,24 @@ export class LoginComponent {
       },
       error: (err) => {
         console.error('Lỗi đăng nhập:', err);
-        alert('Sai mã sinh viên hoặc mật khẩu!');
+        this.showNotification('Sai mã đăng nhập hoặc mật khẩu!', 'error');
       },
     });
   }
 
   async loginWithGoogle() {
     // Đoạn Google login sẽ triển khai sau
+  }
+
+  showNotification(
+    message: string,
+    type: 'success' | 'error' | 'info' | 'warn'
+  ) {
+    this.snackBar.open(message, 'Đóng', {
+      duration: 3000,
+      horizontalPosition: 'end',
+      verticalPosition: 'top',
+      panelClass: [`snackbar-${type}`],
+    });
   }
 }

@@ -1,0 +1,78 @@
+<div class="from-dialog">
+  <h2>Cập nhật giáo viên</h2>
+
+  <form
+    [formGroup]="updateFormData"
+    (ngSubmit)="onSubmit()"
+    class="form-container"
+  >
+    <div class="form-group">
+      <label for="tenDangNhap">Tên đăng nhập:</label>
+      <input
+        id="tenDangNhap"
+        type="text"
+        formControlName="tenDangNhap"
+        readonly
+        class="readonly-gray"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="hoTen">Họ tên:</label>
+      <input id="hoTen" type="text" formControlName="hoTen" />
+      <div
+        *ngIf="
+          updateFormData.get('hoTen')?.invalid &&
+          updateFormData.get('hoTen')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Vui lòng nhập họ tên.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="bomon">Bộ môn:</label>
+      <input id="bomon" type="text" formControlName="bomon" />
+      <div
+        *ngIf="
+          updateFormData.get('bomon')?.invalid &&
+          updateFormData.get('bomon')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Vui lòng nhập bộ môn.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="maKhoa">Khoa:</label>
+      <select id="maKhoa" formControlName="maKhoa">
+        <option value="" disabled selected>Chọn khoa</option>
+        <option *ngFor="let khoa of khoas" [value]="khoa.makhoa">
+          {{ khoa.tenKhoa }}
+        </option>
+      </select>
+
+      <div
+        *ngIf="
+          updateFormData.get('maKhoa')?.invalid &&
+          updateFormData.get('maKhoa')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Vui lòng chọn khoa.
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" [disabled]="updateFormData.invalid">
+        Cập nhật
+      </button>
+      <button type="button" (click)="onCancel()">Hủy</button>
+    </div>
+  </form>
+</div>

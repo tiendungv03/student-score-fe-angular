@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RegistrationsComponent } from './registrations.component';
+import { ViewLopHocPhanComponent } from './view-lop-hoc-phan.component';
 
-describe('RegistrationsComponent', () => {
-  let component: RegistrationsComponent;
-  let fixture: ComponentFixture<RegistrationsComponent>;
+describe('ViewLopHocPhanComponent', () => {
+  let component: ViewLopHocPhanComponent;
+  let fixture: ComponentFixture<ViewLopHocPhanComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RegistrationsComponent]
+      imports: [ViewLopHocPhanComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(RegistrationsComponent);
+    fixture = TestBed.createComponent(ViewLopHocPhanComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -9,21 +9,27 @@
   font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 1rem;
+  margin-left: 1.5rem;
 }
 
-.mb-4 {
-  margin-bottom: 1rem;
-}
-
-.flex {
+.content-title_search {
   display: flex;
-  align-items: center;
+  justify-content: space-around;
 }
 
-.gap-2 > * + * {
-  margin-left: 0.5rem;
+.content-title_search input {
+  width: 100%;
 }
 
+.content-title_search .btn-search {
+  margin-left: 7px;
+  width: 100px;
+}
+
+.content-title {
+  display: flex;
+  justify-content: space-between;
+}
 input[type="text"] {
   padding: 0.5rem;
   border: 1px solid #ccc;
@@ -69,6 +75,37 @@ button.bg-blue-500 {
   z-index: 1;
 }
 
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.icon-button {
+  background: transparent;
+  border: none;
+  padding: 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.2s;
+}
+
+.icon-button:hover {
+  background-color: #e5e7eb;
+}
+
+.icon-button.view {
+  color: #3b82f6; /* xanh */
+}
+
+.icon-button.edit {
+  color: #10b981; /* xanh lá */
+}
+
+.icon-button.delete {
+  color: #ef4444; /* đỏ */
+}
+
 th,
 td {
   padding: 0.75rem;
@@ -92,18 +129,6 @@ td.flex {
   gap: 0.5rem;
 }
 
-button[mat-icon-button] {
-  background: transparent;
-  border: none;
-  padding: 6px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button[mat-icon-button]:hover {
-  background-color: #e5e7eb;
-}
-
 @media (max-width: 768px) {
   .flex {
     flex-direction: column;
@@ -124,4 +149,47 @@ button[mat-icon-button]:hover {
     font-size: 14px;
     min-width: 600px;
   }
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.icon-button {
+  background: transparent;
+  border: 1px solid transparent;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+}
+
+/* Xem */
+.icon-button.view {
+  color: #2563eb; /* Blue-600 */
+  border-color: #bfdbfe; /* Blue-200 */
+}
+.icon-button.view:hover {
+  background-color: #e0f2fe; /* Blue-100 */
+}
+
+/* Sửa */
+.icon-button.edit {
+  color: #059669; /* Green-600 */
+  border-color: #bbf7d0; /* Green-200 */
+}
+.icon-button.edit:hover {
+  background-color: #d1fae5; /* Green-100 */
+}
+
+/* Xóa */
+.icon-button.delete {
+  color: #dc2626; /* Red-600 */
+  border-color: #fecaca; /* Red-200 */
+}
+.icon-button.delete:hover {
+  background-color: #fee2e2; /* Red-100 */
 }

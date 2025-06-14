@@ -6,19 +6,19 @@
   <div class="sidebar-header">
     <div class="sidebar-header_logo">
       <div class="img-logo">
-        <img src="assets/logo.png" alt="Logo" />
+        <img src="/assets/images/logo.svg" alt="Logo" />
       </div>
 
       <div class="sidebar-title">
-        <h2>Trường qq</h2>
+        <h2>AcademyFlow</h2>
         <!-- <p>Xin chào, {{ user?.name }}</p>
         <p>Vai trò: {{ user?.role }}</p> -->
       </div>
     </div>
 
-    <div class="sidebar-header_toggle" (click)="toggleSidebar()">
+    <!-- <div class="sidebar-header_toggle" (click)="toggleSidebar()">
       <i class="bx bx-chevron-right toggle"></i>
-    </div>
+    </div> -->
   </div>
 
   <div class="sidebar-menu_item" role="navigation">
@@ -33,30 +33,30 @@
           <span class="text-nav">Quản lý tài khoản</span>
         </a>
       </li>
-      <li>
+      <!-- <li>
         <a
-          routerLink="/roles"
+          routerLink="/admin/roles"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"
         >
           <i class="bx bx-shield-quarter icon"></i>
           <span class="text-nav">Quản lý phân quyền</span>
         </a>
-      </li>
+      </li> -->
       <li>
-        <a routerLink="/departments" routerLinkActive="active">
+        <a routerLink="/admin/departments" routerLinkActive="active">
           <i class="bx bx-building icon"></i>
           <span class="text-nav">Quản lý khoa</span>
         </a>
       </li>
       <li>
-        <a routerLink="/lecturers" routerLinkActive="active">
+        <a routerLink="/admin/teachers" routerLinkActive="active">
           <i class="bx bx-chalkboard icon"></i>
           <span class="text-nav">Quản lý giảng viên</span>
         </a>
       </li>
       <li>
-        <a routerLink="/students" routerLinkActive="active">
+        <a routerLink="/admin/students" routerLinkActive="active">
           <i class="bx bxs-graduation icon"></i>
           <span class="text-nav">Quản lý sinh viên</span>
         </a>
@@ -68,7 +68,7 @@
         </a>
       </li>
       <li>
-        <a routerLink="/course-classes" routerLinkActive="active">
+        <a routerLink="/admin/course-classes" routerLinkActive="active">
           <i class="bx bx-layer icon"></i>
           <span class="text-nav">Quản lý lớp học phần</span>
         </a>
@@ -79,12 +79,12 @@
           <span class="text-nav">DS lớp học phần</span>
         </a>
       </li> -->
-      <li>
+      <!-- <li>
         <a routerLink="/results" routerLinkActive="active">
           <i class="bx bx-bar-chart-alt-2 icon"></i>
           <span class="text-nav">Kết quả học tập</span>
         </a>
-      </li>
+      </li> -->
       <!-- <li>
         <a routerLink="/register-class" routerLinkActive="active">
           <i class="bx bx-edit-alt icon"></i>
@@ -123,12 +123,14 @@
 >
   <div class="logo">
     <!-- <img src="assets/logo.png" alt="Logo" /> -->
-    <span>Admin Panel</span>
+    <div class="header-menu_openSlidebar" (click)="toggleSidebar()">
+      <i class="bx bx-menu toggle"></i>
+    </div>
   </div>
   <ul class="top-menu">
-    <li><a routerLink="/admin/users">Item</a></li>
+    <!-- <li><a routerLink="/admin/users">Item</a></li>
     <li><a routerLink="/admin/settings">Item</a></li>
-    <li><a routerLink="/admin/reports">Item</a></li>
+    <li><a routerLink="/admin/reports">Item</a></li> -->
   </ul>
   <div class="header-actions">
     <div class="user-profile">

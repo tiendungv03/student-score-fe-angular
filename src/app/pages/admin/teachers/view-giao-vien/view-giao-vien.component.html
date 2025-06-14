@@ -1,0 +1,41 @@
+<div class="content-view">
+  <h2>Chi tiết giáo viên</h2>
+
+  <button (click)="goBack()" class="btn-back">← Quay lại</button>
+
+  <p><strong>Tên đăng nhập:</strong> {{ giaoVien.tenDangNhap }}</p>
+  <p><strong>Họ tên:</strong> {{ giaoVien.hoTen }}</p>
+  <p><strong>Bộ môn:</strong> {{ giaoVien.bomon }}</p>
+  <p><strong>Khoa:</strong> {{ giaoVien.khoa?.tenKhoa }}</p>
+
+  <h3>Lớp học phần đang dạy</h3>
+  <div *ngIf="lopDangDay?.length === 0">
+    <p>Chưa có lớp nào</p>
+  </div>
+  <div class="lop-container">
+    <div class="lop-card" *ngFor="let lop of lopDangDay">
+      <p><strong>Mã lớp học phần:</strong> {{ lop.maLopHocPhan }}</p>
+      <p><strong>Mã học phần:</strong> {{ lop.maHP }}</p>
+      <p><strong>Tên học phần:</strong>{{ lop }}</p>
+      <p><strong>Sĩ số:</strong> {{ lop.siSo }}</p>
+      <button class="btn-xem" (click)="xemDanhSachSinhVien(lop)">
+        👥 Xem danh sách sinh viên
+      </button>
+    </div>
+  </div>
+
+  <h3>Lớp học phần đã kết thúc</h3>
+  <div *ngIf="lopKetThuc?.length === 0">
+    <p>Chưa có lớp nào</p>
+  </div>
+  <div class="lop-container">
+    <div class="lop-card" *ngFor="let lop of lopKetThuc">
+      <p><strong>Mã lớp học phần:</strong> {{ lop.maLopHocPhan }}</p>
+      <p><strong>Mã học phần:</strong> {{ lop.maHP }}</p>
+      <p><strong>Sĩ số:</strong> {{ lop.siSo }}</p>
+      <button class="btn-xem" (click)="xemDanhSachSinhVien(lop)">
+        👥 Xem danh sách sinh viên
+      </button>
+    </div>
+  </div>
+</div>

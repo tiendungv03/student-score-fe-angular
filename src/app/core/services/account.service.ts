@@ -30,13 +30,14 @@ export class AccountService {
   //   return this.http.get<Account>(`${this.baseUrl}/${id}`);
   // }
 
-  // createAccount(account: Account): Observable<Account> {
-  //   return this.http.post<Account>(this.baseUrl, account);
-  // }
+  createAccount(account: any): Observable<any> {
+    return this.http.post<any>(this.baseUrl, account);
+  }
 
-  // updateAccount(id: string, account: Account): Observable<any> {
-  //   return this.http.put(`${this.baseUrl}/${id}`, account);
-  // }
+  updateAccount(id: string, data: any): Observable<any> {
+    const url = this.baseUrl;
+    return this.http.put(`${this.baseUrl}/${id}`, data, this.getHttpOptions());
+  }
 
   // deleteAccount(id: string): Observable<any> {
   //   return this.http.delete(`${this.baseUrl}/${id}`);
