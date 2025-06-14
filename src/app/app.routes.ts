@@ -2,12 +2,7 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { authGuard } from './core/guards/auth.guard';
-import { AccountsComponent } from './pages/admin/accounts/accounts.component';
-import { AdminLayoutComponent } from './pages/admin/admin-layout/admin-layout.component';
-import { CoursesComponent } from './pages/admin/courses/courses.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
-//Student
-import { StudentLayoutComponent } from './pages/student/student-layout/student-layout.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -35,11 +30,67 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'roles',
+        loadComponent: () =>
+          import('./pages/admin/permissions/permissions.component').then(
+            (m) => m.PermissionsComponent
+          ),
+      },
+      {
+        path: 'departments',
+        loadComponent: () =>
+          import('./pages/admin/departments/departments.component').then(
+            (m) => m.DepartmentsComponent
+          ),
+      },
+      {
+        path: 'teachers',
+        loadComponent: () =>
+          import('./pages/admin/teachers/teachers.component').then(
+            (m) => m.TeachersComponent
+          ),
+      },
+      {
+        path: 'teachers/:id',
+        loadComponent: () =>
+          import(
+            './pages/admin/teachers/view-giao-vien/view-giao-vien.component'
+          ).then((m) => m.ViewGiaoVienComponent),
+      },
+      {
+        path: 'students',
+        loadComponent: () =>
+          import('./pages/admin/students/students.component').then(
+            (m) => m.StudentsComponent
+          ),
+      },
+      {
+        path: 'students/:id',
+        loadComponent: () =>
+          import(
+            './pages/admin/students/view-sinh-vien/view-sinh-vien.component'
+          ).then((m) => m.ViewSinhVienComponent),
+      },
+      {
         path: 'courses',
         loadComponent: () =>
           import('./pages/admin/courses/courses.component').then(
             (m) => m.CoursesComponent
           ),
+      },
+      {
+        path: 'course-classes',
+        loadComponent: () =>
+          import('./pages/admin/course-classes/course-classes.component').then(
+            (m) => m.CourseClassesComponent
+          ),
+      },
+      {
+        path: 'course-classes/:id',
+        loadComponent: () =>
+          import(
+            './pages/admin/course-classes/view-lop-hoc-phan/view-lop-hoc-phan.component'
+          ).then((m) => m.ViewLopHocPhanComponent),
       },
     ],
   },

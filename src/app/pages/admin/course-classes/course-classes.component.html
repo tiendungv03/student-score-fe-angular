@@ -1,1 +1,84 @@
-<p>course-classes works!</p>
+<div class="content-table">
+  <h2 class="text-xl mb-4">Quản lý lớp học phần</h2>
+
+  <div class="content-title">
+    <div class="content-title_search">
+      <input
+        type="text"
+        [(ngModel)]="searchText"
+        (input)="filterData()"
+        placeholder="Tìm kiếm học phần..."
+        class="border p-2 rounded w-1/3"
+      />
+      <button class="bg-blue-500 text-white btn-search">+ Tìm</button>
+    </div>
+    <div class="content-title_createAccount">
+      <button class="create-user bg-blue-500" (click)="createLopHocPhan()">
+        Thêm lớp học phần
+      </button>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Mã lớp học phần</th>
+
+          <th>Tên học phần</th>
+
+          <th>Sĩ số</th>
+
+          <th>Thông tin</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let lopHocPhans of filteredData">
+          <!-- <ng-container *ngFor="let tk of quyen.taiKhoans"> -->
+          <tr>
+            <td>{{ lopHocPhans.maLopHocPhan }}</td>
+            <!-- <td>{{ lopHocPhans.maHP }}</td> -->
+            <td>{{ lopHocPhans.hocPhan?.tenHP }}</td>
+
+            <td>{{ lopHocPhans.siSo }}</td>
+
+            <td>
+              <p>Năm học: {{ lopHocPhans.hocKy?.namHoc }}</p>
+              <p>Học kỳ: {{ lopHocPhans.hocKy?.hocKySo }}</p>
+            </td>
+
+            <!-- <td>{{ lopHocPhans.khoa?.tenKhoa }}</td> -->
+            <td class="action-buttons">
+              <!-- Xem -->
+              <button
+                title="Xem chi tiết"
+                class="icon-button view"
+                (click)="viewLopHocPhan(lopHocPhans)"
+              >
+                Xem
+              </button>
+              <!-- Sửa -->
+              <button
+                title="Chỉnh sửa"
+                class="icon-button edit"
+                (click)="updateLopHocPhan(lopHocPhans)"
+              >
+                Sửa
+              </button>
+              <!-- Xóa -->
+              <button
+                title="Xóa"
+                class="icon-button delete"
+                (click)="confirmDelete(lopHocPhans)"
+              >
+                Xóa
+              </button>
+            </td>
+          </tr>
+        </ng-container>
+        <!-- </ng-container> -->
+      </tbody>
+    </table>
+  </div>
+</div>

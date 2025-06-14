@@ -1,20 +1,22 @@
 <div class="content-table">
   <h2 class="text-xl mb-4">Quản lý tài khoản</h2>
 
-  <div class="mb-4 flex gap-2">
-    <input
-      type="text"
-      [(ngModel)]="searchText"
-      (input)="filterAccounts()"
-      placeholder="Tìm kiếm tài khoản..."
-      class="border p-2 rounded w-1/3"
-    />
-    <button
-      (click)="openForm()"
-      class="bg-blue-500 text-white px-4 py-2 rounded"
-    >
-      + Tìm
-    </button>
+  <div class="content-title">
+    <div class="content-title_search">
+      <input
+        type="text"
+        [(ngModel)]="searchText"
+        (input)="filterAccounts()"
+        placeholder="Tìm kiếm tài khoản..."
+        class="border p-2 rounded w-1/3"
+      />
+      <button class="bg-blue-500 text-white btn-search">+ Tìm</button>
+    </div>
+    <div class="content-title_createAccount">
+      <button class="create-user bg-blue-500" (click)="createAccount()">
+        Thêm tài khoản
+      </button>
+    </div>
   </div>
 
   <div class="table-container">
@@ -24,74 +26,69 @@
           <th>Tên đăng nhập</th>
           <th>Họ tên</th>
           <th>Vai trò</th>
+          <!-- <th>Mật khẩu</th> -->
           <th>Thông tin chi tiết</th>
           <th>Trạng thái</th>
           <th>Thao tác</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let acc of filteredAccounts">
-          <td>{{ acc.tenDangNhap }}</td>
+        <ng-container *ngFor="let acc of filteredData">
+          <tr>
+            <td>{{ acc.tenDangNhap }}</td>
+            <!-- Họ tên -->
+            <td>
+              {{
+                acc.giangVien?.hoTen ||
+                  acc.sinhVien?.hoTen ||
+                  "Người dùng hệ thống chưa xác định"
+              }}
+            </td>
 
-          <!-- Họ tên -->
-          <td>
-            {{
-              acc.giangVien?.hoTen || acc.sinhVien?.hoTen || "Admin hệ thống"
-            }}
-          </td>
+            <!-- Vai trò -->
+            <td>{{ acc.phanQuyen?.tenQuyen }}</td>
 
-          <!-- Vai trò -->
-          <td>{{ acc.phanQuyen?.tenQuyen }}</td>
+            <!-- <td>{{ acc.matKhau }}</td> -->
 
-          <!-- Thông tin chi tiết -->
-          <td>
-            <ng-container *ngIf="acc.giangVien">
-              Bộ môn: {{ acc.giangVien.bomon }} <br />
-              Khoa: {{ acc.giangVien.maKhoa }}
-            </ng-container>
-            <ng-container *ngIf="acc.sinhVien">
-              Lớp: {{ acc.sinhVien.lop }} <br />
-            </ng-container>
-            <ng-container *ngIf="!acc.giangVien && !acc.sinhVien">
-              (Admin hệ thống)
-            </ng-container>
-          </td>
+            <!-- Thông tin chi tiết -->
+            <td>
+              <ng-container *ngIf="acc.giangVien">
+                Bộ môn: {{ acc.giangVien.bomon }} <br />
+                Khoa: {{ acc.giangVien.maKhoa }}
+              </ng-container>
+              <ng-container *ngIf="acc.sinhVien">
+                Lớp: {{ acc.sinhVien.lop }} <br />
+              </ng-container>
+              <ng-container *ngIf="!acc.giangVien && !acc.sinhVien">
+                (chưa có thông tin)
+              </ng-container>
+            </td>
 
-          <!-- Trạng thái -->
-          <td>{{ acc.trangThai ? "Hoạt động" : "Bị khóa" }}</td>
+            <td>{{ acc.trangThai ? "Hoạt động" : "Bị khóa" }}</td>
 
-          <td class="flex gap-2">
-            <!-- Xem -->
-            <button
-              mat-icon-button
-              color="primary"
-              matTooltip="Xem chi tiết"
-              (click)="viewAccount(acc)"
-            >
-              <mat-icon>Xem</mat-icon>
-            </button>
-
-            <!-- Sửa -->
-            <button
-              mat-icon-button
-              color="accent"
-              matTooltip="Chỉnh sửa"
-              (click)="openForm(acc)"
-            >
-              <mat-icon>Sửa</mat-icon>
-            </button>
-
-            <!-- Xóa -->
-            <button
-              mat-icon-button
-              color="warn"
-              matTooltip="Xóa"
-              (click)="confirmDelete(acc)"
-            >
-              <mat-icon>Xóa</mat-icon>
-            </button>
-          </td>
-        </tr>
+            <!-- Trạng thái -->
+            <td class="action-buttons">
+              <!-- Xem -->
+              <button title="Xem chi tiết" class="icon-button view">Xem</button>
+              <!-- Sửa -->
+              <button
+                title="Chỉnh sửa"
+                class="icon-button edit"
+                (click)="updateAccount(acc)"
+              >
+                Sửa
+              </button>
+              <!-- Xóa -->
+              <button
+                title="Xóa"
+                class="icon-button delete"
+                (click)="confirmDelete(acc)"
+              >
+                Xóa
+              </button>
+            </td>
+          </tr>
+        </ng-container>
       </tbody>
     </table>
   </div>
