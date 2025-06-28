@@ -86,7 +86,7 @@ export const routes: Routes = [
           ),
       },
       {
-        path: 'course-classes/:id',
+        path: 'course-classes/:maLopHocPhan/:maHocKy',
         loadComponent: () =>
           import(
             './pages/admin/course-classes/view-lop-hoc-phan/view-lop-hoc-phan.component'
@@ -105,13 +105,22 @@ export const routes: Routes = [
     children: [],
   },
   {
-    path: 'student',
+    path: '',
     canActivate: [authGuard],
     loadComponent: () =>
       import('./pages/student/student-layout/student-layout.component').then(
         (m) => m.StudentLayoutComponent
       ),
-    children: [],
+    children: [
+      {
+        path: 'ThongTinSinhVien',
+        loadComponent: () =>
+          import('./pages/student/view-student/view-student.component').then(
+            (m) => m.ViewStudentComponent
+          ),
+      },
+      { path: '', redirectTo: 'ThongTinSinhVien', pathMatch: 'full' },
+    ],
   },
   { path: '**', redirectTo: '/404' }, // fallback route
 ];

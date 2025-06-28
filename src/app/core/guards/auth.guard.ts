@@ -4,6 +4,7 @@ import { inject } from '@angular/core';
 export const authGuard: CanActivateFn = (route, state) => {
   const token = localStorage.getItem('authToken');
   const userRole = localStorage.getItem('userRole'); // phải lưu từ login
+  const userName = localStorage.getItem('userName');
 
   if (token) {
     const allowedRoles = route.data?.['roles'];

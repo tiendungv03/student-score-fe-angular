@@ -24,6 +24,7 @@ export class HttpClientApiService {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   // ========== Key URL ==========
+
   private keyTaiKhoans = 'TaiKhoans';
   private keyPhanQuyens = 'PhanQuyens';
   private keyKhoas = 'Khoas';
@@ -32,6 +33,20 @@ export class HttpClientApiService {
   private keyHocPhans = 'HocPhans';
   private keyLopHocPhans = 'LopHocPhans';
   private keyHocKies = 'HocKys';
+
+  private keyKetQuaHocTapDangki = 'sinhvien/KetQuaHocTap/dang-ki';
+
+  //Admin
+  private adminGetTaiKhoans = 'admin/TaiKhoans';
+  private adminGetKeySinhViens = 'admin/sinhviens';
+  private adminGetKeyGiangViens = 'admin/GiangViens';
+  private adminGetKeyHocPhans = 'admin/HocPhans';
+  private adminGetKeyLopHocPhans = 'admin/LopHocPhans';
+  private adminGetTietHocs = 'admin/TietHocs';
+  private adminGetPhanQuyens = 'admin/PhanQuyens';
+  private adminGetKetQuaHocTap = 'admin/KetQuaHocTap';
+  private adminGetHocKys = 'admin/HocKys';
+  private adminGetKhoas = 'admin/Khoas';
 
   // ========== Hàm tái sử dụng ==========
   private get(keyUrlApi: string): Observable<any> {
@@ -61,125 +76,163 @@ export class HttpClientApiService {
 
   // ========== Tài khoản ==========
   getAccounts(): Observable<any> {
-    return this.get(this.keyTaiKhoans);
+    return this.get(this.adminGetTaiKhoans);
   }
 
   createAccount(data: any): Observable<any> {
-    return this.post(this.keyTaiKhoans, data);
+    return this.post(this.adminGetTaiKhoans, data);
   }
 
   updateAccount(id: string, data: any): Observable<any> {
-    return this.put(this.keyTaiKhoans, id, data);
+    return this.put(this.adminGetTaiKhoans, id, data);
   }
 
   deleteAccount(id: string): Observable<any> {
-    return this.delete(this.keyTaiKhoans, id);
+    return this.delete(this.adminGetTaiKhoans, id);
   }
 
   // ========== Phân quyền ==========
   getPermissions(): Observable<any> {
-    return this.get(this.keyPhanQuyens);
+    return this.get(this.adminGetPhanQuyens);
   }
 
   // ========== Khoa ==========
   getDepartments(): Observable<any> {
-    return this.get(this.keyKhoas);
+    return this.get(this.adminGetKhoas);
   }
 
   createDepartments(data: any): Observable<any> {
-    return this.post(this.keyKhoas, data);
+    return this.post(this.adminGetKhoas, data);
   }
 
   updateDepartments(maKhoa: string, data: any): Observable<any> {
-    return this.put(this.keyKhoas, maKhoa, data);
+    return this.put(this.adminGetKhoas, maKhoa, data);
   }
 
   deleteDepartments(maKhoa: string): Observable<any> {
-    return this.delete(this.keyKhoas, maKhoa);
+    return this.delete(this.adminGetKhoas, maKhoa);
   }
 
   // ========== Sinh viên ==========
   getStudents(): Observable<any> {
-    return this.get(this.keySinhViens);
+    return this.get(this.adminGetKeySinhViens);
   }
 
   getSinhVienById(tenDangNhap: string) {
-    return this.getById(this.keySinhViens, tenDangNhap);
+    return this.getById(this.adminGetKeySinhViens, tenDangNhap);
   }
 
   postStudent(data: any): Observable<any> {
-    return this.post(this.keySinhViens, data);
+    return this.post(this.adminGetKeySinhViens, data);
   }
 
   putStudent(tenDangNhap: string, data: any): Observable<any> {
-    return this.put(this.keySinhViens, tenDangNhap, data);
+    return this.put(this.adminGetKeySinhViens, tenDangNhap, data);
   }
 
   deleteStudent(tenDangNhap: string): Observable<any> {
-    return this.delete(this.keySinhViens, tenDangNhap);
+    return this.delete(this.adminGetKeySinhViens, tenDangNhap);
   }
 
   // ========== Giảng viên ==========
   getTeachers(): Observable<any> {
-    return this.get(this.keyGiangViens);
+    return this.get(this.adminGetKeyGiangViens);
   }
 
   getByTeachers(tenDangNhap: string) {
-    return this.getById(this.keyGiangViens, tenDangNhap);
+    return this.getById(this.adminGetKeyGiangViens, tenDangNhap);
   }
 
   postTeachers(data: any): Observable<any> {
-    return this.post(this.keyGiangViens, data);
+    return this.post(this.adminGetKeyGiangViens, data);
   }
 
   putTeacher(tenDangNhap: string, data: any): Observable<any> {
-    return this.put(this.keyGiangViens, tenDangNhap, data);
+    return this.put(this.adminGetKeyGiangViens, tenDangNhap, data);
   }
 
   deleteTeachers(tenDangNhap: string): Observable<any> {
-    return this.delete(this.keyGiangViens, tenDangNhap);
+    return this.delete(this.adminGetKeyGiangViens, tenDangNhap);
   }
 
   // ========== Học kỳ ==========
   getHocKies(): Observable<any> {
-    return this.get(this.keyHocKies);
+    return this.get(this.adminGetHocKys);
   }
 
   // ========== Học phần ==========
   getHocPhans(): Observable<any> {
-    return this.get(this.keyHocPhans);
+    return this.get(this.adminGetKeyHocPhans);
   }
 
   postHocPhans(data: any): Observable<any> {
-    return this.post(this.keyHocPhans, data);
+    return this.post(this.adminGetKeyHocPhans, data);
   }
 
   putHocPhans(maHP: string, data: any): Observable<any> {
-    return this.put(this.keyHocPhans, maHP, data);
+    return this.put(this.adminGetKeyHocPhans, maHP, data);
   }
 
   deleteHocPhans(maHP: string): Observable<any> {
-    return this.delete(this.keyHocPhans, maHP);
+    return this.delete(this.adminGetKeyHocPhans, maHP);
   }
 
   // ========== Lớp học phần ==========
   getLopHocPhans(): Observable<any> {
-    return this.get(this.keyLopHocPhans);
+    return this.get(this.adminGetKeyLopHocPhans);
   }
 
-  getByLopHocPhan(maLopHocPhan: string) {
-    return this.getById(this.keyLopHocPhans, maLopHocPhan);
+  getByLopHocPhan(maLopHocPhan: string, maHocKy: string) {
+    const url = `${this.apiUrl}/${this.adminGetKeyLopHocPhans}/${maLopHocPhan}/${maHocKy}`;
+    return this.http.get<any>(url, this.getHttpOptions());
   }
 
   postLopHocPhans(data: any): Observable<any> {
-    return this.post(this.keyLopHocPhans, data);
+    return this.post(this.adminGetKeyLopHocPhans, data);
   }
 
   putLopHocPhans(maLopHocPhan: string, data: any): Observable<any> {
-    return this.put(this.keyLopHocPhans, maLopHocPhan, data);
+    return this.put(this.adminGetKeyLopHocPhans, maLopHocPhan, data);
   }
 
   deleteLopHocPhans(maLopHocPhan: string): Observable<any> {
-    return this.delete(this.keyLopHocPhans, maLopHocPhan);
+    // const url = `${this.adminGetKeyLopHocPhans}/${maLopHocPhan}/${maHocKy}`
+    return this.delete(this.adminGetKeyLopHocPhans, maLopHocPhan);
+  }
+
+  // ========== Kết quả học tập ==========
+  getKetQuaHocTapById(
+    tenSV: string,
+    maLopHocPhan: string,
+    maHocKy: string
+  ): Observable<any> {
+    const keyId = `${tenSV}/${maLopHocPhan}/${maHocKy}`;
+    return this.getById(this.adminGetKetQuaHocTap, keyId);
+  }
+
+  postKetQuaHocTap(data: any): Observable<any> {
+    const key = `${this.keyKetQuaHocTapDangki}/${'dang-ki'}`;
+    return this.post(key, data);
+  }
+
+  putKetQuaHocTap(
+    tenSV: string,
+    maLop: string,
+    maHK: string,
+    data: any
+  ): Observable<any> {
+    const keyUpdate = `${'nhap-diem'}/${tenSV}/${maLop}/${maHK}`;
+    // console.log('api data', data);
+    console.log('api key', keyUpdate);
+    return this.put(this.adminGetKetQuaHocTap, keyUpdate, data);
+  }
+
+  deleteKetQuaHocTap(
+    tenSV: string,
+    maLopHocPhan: string,
+    maHocKy: string
+  ): Observable<any> {
+    const keyDel = `${tenSV}/${maLopHocPhan}/${maHocKy}`;
+    return this.delete(this.adminGetKetQuaHocTap, keyDel);
   }
 }

@@ -9,7 +9,12 @@ export interface LopHocPhan {
   tenDangNhapGV: string;
   maHocKy: string;
   siSo: number;
+  siSoToiDa: number;
   trangThai: boolean;
+  ngayBatDauDay: string;
+  ngayKetThucDay: string;
+  tietHocId: string;
+  phong: string;
   giangVien?: GiangVien;
   hocKy?: HocKy;
   hocPhan?: HocPhan;

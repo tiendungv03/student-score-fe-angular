@@ -23,6 +23,10 @@ export class CourseClassesComponent {
   dataApi: LopHocPhan[] = [];
   filteredData: LopHocPhan[] = [];
   // public sinhViens:
+  currentPage = 1;
+  pageSize = 5;
+  totalItems = 0;
+
   searchText = '';
 
   constructor(
@@ -46,12 +50,24 @@ export class CourseClassesComponent {
         this.dataApi = data;
 
         this.filteredData = [...this.dataApi];
+        this.totalItems = data.totalCount; // dùng để phân trang
         // console.log('dtf: ' + this.filteredData);
         // console.log('Sinh vien: ' + JSON.stringify(this.filteredData, null, 2));
       },
       error: (error) => {
-        console.error('Error loading accounts:', error);
+        console.error('Error loading:', error);
         this.showNotification('Lỗi hiện thị học phần!', 'error');
+      },
+    });
+
+    this.httpClient.getLopHocPhans().subscribe({
+      next: (res) => {
+        this.dataApi = res.items; // hoặc res.data tuỳ backend
+        this.filteredData = [...this.dataApi];
+        this.totalItems = res.totalCount; // dùng để phân trang
+      },
+      error: () => {
+        this.showNotification('Lỗi hiển thị học phần!', 'error');
       },
     });
   }
@@ -79,7 +95,11 @@ export class CourseClassesComponent {
   }
 
   viewLopHocPhan(lopHocPhan: LopHocPhan) {
-    this.router.navigate(['/admin/course-classes/', lopHocPhan.maLopHocPhan]);
+    this.router.navigate([
+      '/admin/course-classes/',
+      lopHocPhan.maLopHocPhan,
+      lopHocPhan.maHocKy,
+    ]);
   }
 
   updateLopHocPhan(lopHocPhan?: LopHocPhan) {

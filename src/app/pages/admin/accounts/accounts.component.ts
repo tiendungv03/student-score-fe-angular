@@ -52,7 +52,7 @@ export class AccountsComponent {
         // console.log('Danh sách tài khoản:', data);
         this.dataApi = data;
         this.filteredData = [...this.dataApi];
-        console.log('acc: ' + JSON.stringify(this.filteredData, null, 2));
+        // console.log('acc: ' + JSON.stringify(this.filteredData, null, 2));
       },
       error: (err) => {
         console.error('Lỗi khi tải danh sách tài khoản:', err);
