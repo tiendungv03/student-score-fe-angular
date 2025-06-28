@@ -1,0 +1,45 @@
+<div class="content-table">
+    <h2 class="text-xl mb-4">Danh sách sinh viên đăng ký lớp học phần {{ maLopHocPhan }} </h2>
+
+    <!-- <div class="content-title">
+        <div class="content-title_search">
+            <input type="text" [(ngModel)]="searchText" (input)="filterStudent()" placeholder="Tìm kiếm "
+                class="border p-2 rounded w-1/3" />
+            <button class="bg-blue-500 text-white btn-search">+ Tìm</button>
+        </div>
+        <div class="content-title_createAccount">
+
+        </div>
+    </div> -->
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Tên đăng nhập</th>
+                    <th>Họ tên</th>
+                    <th>Ngày sinh</th>
+                    <th>Giới tính</th>
+                    <th>Lớp</th>
+                    <th>Khoa</th>
+                    <th>Trạng thái</th>
+                </tr>
+            </thead>
+            <tbody>
+
+
+                <tr *ngFor="let sv of danhSachSinhVien">
+                    <td>{{ sv.tenDangNhap }}</td>
+                    <td>{{ sv.hoTen }}</td>
+                    <td>{{ sv.ngaySinh | date }}</td>
+                    <td>{{ sv.gioiTinh ? 'Nam' : 'Nữ' }}</td>
+                    <td>{{ sv.lop }}</td>
+                    <td>{{ sv.maKhoa }}</td>
+                    <td>{{ sv.trangThai ? 'True' : 'False' }}</td>
+                </tr>
+
+
+            </tbody>
+        </table>
+    </div>
+</div>

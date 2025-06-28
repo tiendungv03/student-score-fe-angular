@@ -1,1 +1,53 @@
-<p>course-classes works!</p>
+<div class="content-table">
+    <h2 class="text-xl mb-4">Danh sách lớp học phần </h2>
+
+    <div class="content-title">
+        <div class="content-title_search">
+            <input type="text" [(ngModel)]="searchText" (input)="filterCourseClasses()" placeholder="Tìm kiếm "
+                class="border p-2 rounded w-1/3" />
+            <button class="bg-blue-500 text-white btn-search">+ Tìm</button>
+        </div>
+        <div class="content-title_createAccount">
+
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Mã lớp HP</th>
+                    <th>Tên học phần</th>
+                    <th>Mã HP</th>
+                    <!-- <th>STC</th> -->
+                    <th>Học kỳ</th>
+                    <th>Sĩ số</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let course of filteredData">
+                    <tr>
+                        <td>{{ course.maLopHocPhan }}</td>
+                        <td>{{ course.tenHP}}</td>
+                        <td>{{ course.maHP }}</td>
+                        <!-- <td>{{ course.soTinChi}}</td> -->
+                        <td>{{ course.maHocKy }}</td>
+                        <td>{{ course.siSo }}</td>
+
+                        <!-- Trạng thái -->
+                        <td class="action-buttons">
+                            <!-- Xem -->
+                            <a [routerLink]="['/teacher/display-sv', course.maLopHocPhan]"
+                                class="btn btn-outline-primary btn-sm">
+                                Xem
+                            </a>
+
+
+                        </td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
+</div>

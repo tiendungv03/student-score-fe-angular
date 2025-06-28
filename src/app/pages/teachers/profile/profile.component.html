@@ -1,0 +1,26 @@
+<div class="content-table">
+    <h2 class="text-xl mb-4">Thông tin giảng viên</h2>
+
+    <div class="table-container"></div>
+    <table *ngIf="giangVienInfomation">
+        <thead>
+            <tr>
+                <th>Họ tên</th>
+                <th>Bộ môn</th>
+                <th>Khoa</th>
+                <th>Ngày bắt đầu giảng dạy</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ giangVienInfomation.hoTen || 'Chưa có dữ liệu' }}</td>
+                <td>{{ giangVienInfomation.bomon || 'Chưa có dữ liệu' }}</td>
+                <td>{{ giangVienInfomation.tenKhoa || 'Chưa có dữ liệu' }}</td>
+                <td>{{ giangVienInfomation.ngayBatDauGiangDay ? (giangVienInfomation.ngayBatDauGiangDay | date: 'dd/MM/yyyy') : 'N/A' }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p *ngIf="!giangVienInfomation">Không tìm thấy thông tin giảng viên.</p>
+</div>

@@ -6,6 +6,8 @@ import { KetQuaHocTap } from './ket-qua-hoc-tap.model';
 export interface LopHocPhan {
   maLopHocPhan: string;
   maHP: string;
+   tenHP?: string;
+  soTinChi?: number;
   tenDangNhapGV: string;
   maHocKy: string;
   siSo: number;

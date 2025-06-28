@@ -1,0 +1,26 @@
+<div class="content-table">
+  <h2 class="text-xl mb-4">Thời khóa biểu giảng dạy</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Tên học phần</th>
+        <th>Thứ</th>
+        <th>Tiết bắt đầu</th>
+        <th>Tiết kết thúc</th>
+        <th>Phòng</th>
+        <th>Giảng viên</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of thoiKhoaBieu">
+        <td>{{ item.tenHocPhan }}</td>
+        <td>Thứ {{ item.thu }}</td>
+        <td>{{ item.tietDau }}</td>
+        <td>{{ item.tietCuoi }}</td>
+        <td>{{ item.phong }}</td>
+        <td>{{ item.giangVien }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
