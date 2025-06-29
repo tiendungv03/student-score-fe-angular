@@ -31,7 +31,7 @@
         </tr>
       </thead>
       <tbody>
-        <ng-container *ngFor="let sinhVien of filteredData">
+        <ng-container *ngFor="let sinhVien of pagedData">
           <tr *ngIf="sinhVien.trangThai">
             <td>{{ sinhVien.tenDangNhap }}</td>
             <td>{{ sinhVien.hoTen }}</td>
@@ -70,4 +70,17 @@
   <ng-template #loadingTemplate>
     <div class="loading">Đang tải dữ liệu...</div>
   </ng-template>
+
+  <div class="pagination">
+    <button (click)="onPageChange(pageIndex - 1)" [disabled]="pageIndex <= 1">
+      <i class="bx bx-left-arrow-alt"></i>
+    </button>
+    <span>Trang {{ pageIndex }}</span>
+    <button
+      (click)="onPageChange(pageIndex + 1)"
+      [disabled]="pageIndex * pageSize >= totalCount"
+    >
+      <i class="bx bx-right-arrow-alt"></i>
+    </button>
+  </div>
 </div>

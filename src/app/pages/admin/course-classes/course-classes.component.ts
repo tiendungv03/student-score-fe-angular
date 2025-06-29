@@ -23,9 +23,11 @@ export class CourseClassesComponent {
   dataApi: LopHocPhan[] = [];
   filteredData: LopHocPhan[] = [];
   // public sinhViens:
-  currentPage = 1;
-  pageSize = 5;
-  totalItems = 0;
+  fullData: LopHocPhan[] = [];
+  pagedData: LopHocPhan[] = [];
+  pageIndex = 1;
+  pageSize = 10;
+  totalCount = 0;
 
   searchText = '';
 
@@ -43,14 +45,14 @@ export class CourseClassesComponent {
 
   loadDataApi() {
     this.httpClient.getLopHocPhans().subscribe({
-      next: (data) => {
+      next: (res) => {
         // console.log('data api: ' + data);
         // const tamp: any = data;
         // console.log('data api:', JSON.stringify(data, null, 2));
-        this.dataApi = data;
-
-        this.filteredData = [...this.dataApi];
-        this.totalItems = data.totalCount; // dùng để phân trang
+        this.fullData = res.items; // Lưu toàn bộ danh sách
+        this.totalCount = res.totalCount;
+        this.sliceData();
+        // this.totalItems = data.totalCount; // dùng để phân trang
         // console.log('dtf: ' + this.filteredData);
         // console.log('Sinh vien: ' + JSON.stringify(this.filteredData, null, 2));
       },
@@ -59,17 +61,31 @@ export class CourseClassesComponent {
         this.showNotification('Lỗi hiện thị học phần!', 'error');
       },
     });
+  }
 
-    this.httpClient.getLopHocPhans().subscribe({
-      next: (res) => {
-        this.dataApi = res.items; // hoặc res.data tuỳ backend
-        this.filteredData = [...this.dataApi];
-        this.totalItems = res.totalCount; // dùng để phân trang
-      },
-      error: () => {
-        this.showNotification('Lỗi hiển thị học phần!', 'error');
-      },
-    });
+  sliceData() {
+    const start = (this.pageIndex - 1) * this.pageSize;
+    const end = start + this.pageSize;
+    this.pagedData = this.fullData.slice(start, end);
+  }
+
+  nextPage() {
+    if (this.pageIndex * this.pageSize < this.totalCount) {
+      this.pageIndex++;
+      this.loadDataApi();
+    }
+  }
+
+  prevPage() {
+    if (this.pageIndex > 1) {
+      this.pageIndex--;
+      this.loadDataApi();
+    }
+  }
+
+  onPageChange(newPage: number) {
+    this.pageIndex = newPage;
+    this.sliceData();
   }
 
   filterData() {

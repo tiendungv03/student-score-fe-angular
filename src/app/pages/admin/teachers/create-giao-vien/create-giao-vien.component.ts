@@ -38,7 +38,7 @@ export class CreateGiaoVienComponent implements OnInit {
 
     this.httpClient.getDepartments().subscribe({
       next: (data) => {
-        this.khoas = data;
+        this.khoas = data.items;
       },
     });
 

@@ -10,7 +10,7 @@
         placeholder="Tìm kiếm học phần..."
         class="border p-2 rounded w-1/3"
       />
-      <button class="bg-blue-500 text-white btn-search">+ Tìm</button>
+      <!-- <button class="bg-blue-500 text-white btn-search">+ Tìm</button> -->
     </div>
     <div class="content-title_createAccount">
       <button class="create-user bg-blue-500" (click)="createHocPhan()">
@@ -32,7 +32,7 @@
         </tr>
       </thead>
       <tbody>
-        <ng-container *ngFor="let hocPhans of filteredData">
+        <ng-container *ngFor="let hocPhans of pagedData">
           <!-- <ng-container *ngFor="let tk of quyen.taiKhoans"> -->
           <tr>
             <td>{{ hocPhans.maHP }}</td>
@@ -65,5 +65,18 @@
         <!-- </ng-container> -->
       </tbody>
     </table>
+  </div>
+
+  <div class="pagination">
+    <button (click)="onPageChange(pageIndex - 1)" [disabled]="pageIndex <= 1">
+      <i class="bx bx-left-arrow-alt"></i>
+    </button>
+    <span>Trang {{ pageIndex }}</span>
+    <button
+      (click)="onPageChange(pageIndex + 1)"
+      [disabled]="pageIndex * pageSize >= totalCount"
+    >
+      <i class="bx bx-right-arrow-alt"></i>
+    </button>
   </div>
 </div>

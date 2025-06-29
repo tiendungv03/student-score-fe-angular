@@ -43,8 +43,8 @@ export class UpdateHocPhanComponent implements OnInit {
 
     this.loading = true;
     this.httpClient.getDepartments().subscribe({
-      next: (data: Khoa[]) => {
-        this.khoas = data;
+      next: (data) => {
+        this.khoas = data.items;
         this.loading = false;
       },
       error: (error) => {

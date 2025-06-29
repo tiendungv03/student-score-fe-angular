@@ -23,6 +23,12 @@ export class DepartmentsComponent {
   error?: string;
   searchText = '';
 
+  fullData: Khoa[] = [];
+  pagedData: Khoa[] = [];
+  pageIndex = 1;
+  pageSize = 10;
+  totalCount = 0;
+
   constructor(
     private httpClient: HttpClientApiService,
     private fb: FormBuilder,
@@ -40,11 +46,15 @@ export class DepartmentsComponent {
         // console.log('data api: ' + data);
         // const tamp: any = data;
         // console.log('data api:', JSON.stringify(data, null, 2));
-        this.dataApi = data;
+        // this.dataApi = data;
 
-        this.filteredData = [...this.dataApi];
+        // this.filteredData = [...this.dataApi];
         // console.log('dtf: ' + this.filteredData);
         // console.log('khoa: ' + JSON.stringify(this.filteredData, null, 2));
+
+        this.fullData = data.items;
+        this.totalCount = data.totalCount;
+        this.sliceData();
         this.loading = false;
       },
       error: (error) => {
@@ -54,6 +64,31 @@ export class DepartmentsComponent {
         this.showNotification('Không thể tải danh sách khoa', 'error');
       },
     });
+  }
+
+  sliceData() {
+    const start = (this.pageIndex - 1) * this.pageSize;
+    const end = start + this.pageSize;
+    this.pagedData = this.fullData.slice(start, end);
+  }
+
+  nextPage() {
+    if (this.pageIndex * this.pageSize < this.totalCount) {
+      this.pageIndex++;
+      this.loadDataApi();
+    }
+  }
+
+  prevPage() {
+    if (this.pageIndex > 1) {
+      this.pageIndex--;
+      this.loadDataApi();
+    }
+  }
+
+  onPageChange(newPage: number) {
+    this.pageIndex = newPage;
+    this.sliceData();
   }
 
   filterData() {

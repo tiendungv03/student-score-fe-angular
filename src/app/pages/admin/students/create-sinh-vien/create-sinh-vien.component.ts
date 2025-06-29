@@ -124,8 +124,8 @@ export class CreateSinhVienComponent implements OnInit {
       lopHocPhans: this.httpClient.getLopHocPhans(),
     }).subscribe({
       next: ({ khoas, lopHocPhans }) => {
-        this.khoas = khoas;
-        this.lopHocPhans = lopHocPhans;
+        this.khoas = khoas.items;
+        this.lopHocPhans = lopHocPhans.items;
         this.filterLopHocPhans();
         this.loading = false;
       },

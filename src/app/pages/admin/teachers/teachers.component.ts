@@ -21,6 +21,12 @@ export class TeachersComponent {
   dataApi: GiangVien[] = [];
   filteredData: GiangVien[] = [];
   searchText = '';
+
+  fullData: GiangVien[] = [];
+  pagedData: GiangVien[] = [];
+  pageIndex = 1;
+  pageSize = 10;
+  totalCount = 0;
   constructor(
     private httpClient: HttpClientApiService,
     private fb: FormBuilder,
@@ -39,9 +45,14 @@ export class TeachersComponent {
         // console.log('data api: ' + data);
         // const tamp: any = data;
         // console.log('data api:', JSON.stringify(data, null, 2));
-        this.dataApi = data;
 
-        this.filteredData = [...this.dataApi];
+        // this.dataApi = data;
+        // this.filteredData = [...this.dataApi];
+
+        this.fullData = data.items;
+        this.totalCount = data.totalCount;
+        this.sliceData();
+
         // console.log('dtf: ' + this.filteredData);
         // console.log('Sinh vien: ' + JSON.stringify(this.filteredData, null, 2));
       },
@@ -50,6 +61,31 @@ export class TeachersComponent {
         this.showNotification('Failed to load teacher', 'error');
       },
     });
+  }
+
+  sliceData() {
+    const start = (this.pageIndex - 1) * this.pageSize;
+    const end = start + this.pageSize;
+    this.pagedData = this.fullData.slice(start, end);
+  }
+
+  nextPage() {
+    if (this.pageIndex * this.pageSize < this.totalCount) {
+      this.pageIndex++;
+      this.loadDataApi();
+    }
+  }
+
+  prevPage() {
+    if (this.pageIndex > 1) {
+      this.pageIndex--;
+      this.loadDataApi();
+    }
+  }
+
+  onPageChange(newPage: number) {
+    this.pageIndex = newPage;
+    this.sliceData();
   }
 
   filterData() {

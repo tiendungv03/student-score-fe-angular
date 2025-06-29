@@ -161,6 +161,12 @@ export class StudentsComponent implements OnInit {
   searchText = '';
   loading = false;
 
+  fullData: SinhVien[] = [];
+  pagedData: SinhVien[] = [];
+  pageIndex = 1;
+  pageSize = 10;
+  totalCount = 0;
+
   constructor(
     private httpClient: HttpClientApiService,
     private fb: FormBuilder,
@@ -176,9 +182,13 @@ export class StudentsComponent implements OnInit {
   loadDataApi() {
     this.loading = true;
     this.httpClient.getStudents().subscribe({
-      next: (data: SinhVien[]) => {
-        this.dataApi = data;
-        this.filteredData = [...this.dataApi];
+      next: (data) => {
+        // this.dataApi = data;
+        // this.filteredData = [...this.dataApi];
+
+        this.fullData = data.items;
+        this.totalCount = data.totalCount;
+        this.sliceData();
         this.loading = false;
       },
       error: (error) => {
@@ -190,6 +200,31 @@ export class StudentsComponent implements OnInit {
         this.loading = false;
       },
     });
+  }
+
+  sliceData() {
+    const start = (this.pageIndex - 1) * this.pageSize;
+    const end = start + this.pageSize;
+    this.pagedData = this.fullData.slice(start, end);
+  }
+
+  nextPage() {
+    if (this.pageIndex * this.pageSize < this.totalCount) {
+      this.pageIndex++;
+      this.loadDataApi();
+    }
+  }
+
+  prevPage() {
+    if (this.pageIndex > 1) {
+      this.pageIndex--;
+      this.loadDataApi();
+    }
+  }
+
+  onPageChange(newPage: number) {
+    this.pageIndex = newPage;
+    this.sliceData();
   }
 
   filterData() {

@@ -45,25 +45,25 @@ export class CreateLopHocPhanComponent implements OnInit {
 
     this.httpClient.getTeachers().subscribe({
       next: (data) => {
-        this.giangViens = data;
+        this.giangViens = data.items;
       },
     });
 
     this.httpClient.getLopHocPhans().subscribe({
       next: (data) => {
-        this.lopHocPhans = data;
+        this.lopHocPhans = data.items;
       },
     });
 
     this.httpClient.getHocPhans().subscribe({
       next: (data) => {
-        this.hocPhans = data;
+        this.hocPhans = data.items;
       },
     });
 
     this.httpClient.getHocKies().subscribe({
       next: (data) => {
-        this.hocKys = data;
+        this.hocKys = data.items;
       },
     });
   }

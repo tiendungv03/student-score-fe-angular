@@ -40,7 +40,7 @@ export class UpdateGiaoVienComponent {
     });
 
     this.httpClient.getDepartments().subscribe({
-      next: (data) => (this.khoas = data),
+      next: (data) => (this.khoas = data.items),
     });
   }
 

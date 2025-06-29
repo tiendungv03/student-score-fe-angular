@@ -25,6 +25,12 @@ export class AccountsComponent {
   form!: FormGroup;
   isEditMode = false;
 
+  fullData: TaiKhoan[] = [];
+  pagedData: TaiKhoan[] = [];
+  pageIndex = 1;
+  pageSize = 10;
+  totalCount = 0;
+
   constructor(
     private httpClient: HttpClientApiService,
     private fb: FormBuilder,
@@ -45,12 +51,6 @@ export class AccountsComponent {
       // role: ['', Validators.required],
     });
   }
-
-  fullData: TaiKhoan[] = [];
-  pagedData: TaiKhoan[] = [];
-  pageIndex = 1;
-  pageSize = 10;
-  totalCount = 0;
 
   loadAccounts() {
     this.httpClient.getAccounts().subscribe({
