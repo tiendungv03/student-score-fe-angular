@@ -19,7 +19,7 @@
                     <th>Mã lớp HP</th>
                     <th>Tên học phần</th>
                     <th>Mã HP</th>
-                    <!-- <th>STC</th> -->
+                 
                     <th>Học kỳ</th>
                     <th>Sĩ số</th>
                     <th>Thao tác</th>
@@ -31,19 +31,15 @@
                         <td>{{ course.maLopHocPhan }}</td>
                         <td>{{ course.tenHP}}</td>
                         <td>{{ course.maHP }}</td>
-                        <!-- <td>{{ course.soTinChi}}</td> -->
+            
                         <td>{{ course.maHocKy }}</td>
                         <td>{{ course.siSo }}</td>
 
                         <!-- Trạng thái -->
-                        <td class="action-buttons">
+                        <td>
                             <!-- Xem -->
-                            <a [routerLink]="['/teacher/display-sv', course.maLopHocPhan]"
-                                class="btn btn-outline-primary btn-sm">
-                                Xem
-                            </a>
 
-
+                            <button class="action-buttons" (click)="xemListSV(course.maLopHocPhan)">Xem</button>
                         </td>
                     </tr>
                 </ng-container>

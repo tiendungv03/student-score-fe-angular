@@ -58,3 +58,78 @@ p {
     font-size: 14px;
   }
 }
+
+.btn-toggle-form {
+  background-color: #3498db;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  // margin-bottom: 15px;
+  margin-top: 50px;
+  position: absolute; /* Định vị tuyệt đối */
+    top: 1rem; /* Đẩy lên trên cùng (căn theo padding của .content-table) */
+    right: 2rem; /* Đẩy sang phải cùng (căn theo padding của .content-table) */
+  // float: center;
+  
+ 
+}
+
+.btn-toggle-form:hover {
+  background-color: #2980b9;
+}
+
+/* CSS form đổi mật khẩu như lần trước */
+.change-password-container {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+
+ 
+  
+}
+
+.change-password-container h3 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+
+}
+
+.form-group input[type="password"] {
+  width: 95%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.btn-change-password {
+  width: 100%;
+  padding: 12px;
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-change-password:hover {
+  background-color: #27ae60;
+}

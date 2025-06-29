@@ -118,7 +118,7 @@ export const routes: Routes = [
       },
 
        {
-      path: 'display-sv/:maLopHocPhan',
+      path: 'course-classes/:maLopHocPhan',
       loadComponent: () =>
         import('./pages/teachers/display-sv/display-sv.component').then(
           (m) => m.DisplaySVComponent

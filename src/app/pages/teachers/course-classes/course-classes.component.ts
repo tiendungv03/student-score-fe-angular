@@ -3,8 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { NavigationEnd, Router, RouterModule } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { Router, RouterModule } from '@angular/router';
 import { HttpClientApiService } from '../../../core/services/http-client-api.service';
 import { LopHocPhan } from '../../../model/lop-hoc-phan.model';
 
@@ -94,7 +93,10 @@ export class CourseClassesComponent implements OnInit{
     });
   }
 
-  xemDiem(maLopHocPhan: string) {
-  this.router.navigate(['/teachers/display-sv', maLopHocPhan]);
+  xemListSV(maLopHocPhan: string) {
+    // console.log('Xem danh sách sinh viên của lớp học phần:', maLopHocPhan);
+  // this.router.navigate(['/teachers/course-classes/:maLopHocPhan', maLopHocPhan]);
+  this.router.navigate(['/teacher/course-classes', maLopHocPhan]);
+
 }
 }
