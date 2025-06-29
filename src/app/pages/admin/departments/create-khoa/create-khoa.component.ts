@@ -34,6 +34,8 @@ export class CreateKhoaComponent implements OnInit {
       makhoa: ['', Validators.required],
       tenKhoa: ['', Validators.required],
       mota: ['', Validators.required],
+      ngayTao: [Date, Validators.required],
+      ngayHetHan: [Date],
     });
   }
 

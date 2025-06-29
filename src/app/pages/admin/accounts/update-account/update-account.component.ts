@@ -2,10 +2,11 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AccountService } from '../../../../core/services/account.service';
+// import { AccountService } from '../../../../core/services/account.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TaiKhoan } from '../../../../model/tai-khoan.model';
+import { HttpClientApiService } from '../../../../core/services/http-client-api.service';
 
 @Component({
   selector: 'app-update-account',
@@ -18,7 +19,7 @@ export class UpdateAccountComponent {
   hidePassword: boolean = true;
   constructor(
     private fb: FormBuilder,
-    private accountService: AccountService,
+    private accountService: HttpClientApiService,
     private dialogRef: MatDialogRef<UpdateAccountComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { account?: TaiKhoan },
     public snackBar: MatSnackBar
@@ -30,6 +31,8 @@ export class UpdateAccountComponent {
       matKhau: [this.data?.account?.matKhau || '', Validators.required],
       idPhanQuyen: [this.data?.account?.idPhanQuyen || '', Validators.required],
       trangThai: [this.data?.account?.trangThai ?? true],
+      ngayTao: [this.data?.account?.ngayTao ?? Date, Validators.required],
+      ngayHetHan: [this.data?.account?.ngayHetHan ?? Date, Validators.required],
     });
   }
 

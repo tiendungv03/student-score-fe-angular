@@ -38,7 +38,9 @@ export class CreateAccountComponent {
         tenDangNhap: ['', Validators.required],
         matKhau: ['', Validators.required],
         reMatKhau: ['', Validators.required],
-        idPhanQuyen: ['', Validators.required],
+        idPhanQuyen: [0, [Validators.required, Validators.min(1)]],
+        ngayTao: [Date, Validators.required],
+        ngayHetHan: [Date, Validators.required],
       },
       {
         validators: this.passwordMatchValidator,

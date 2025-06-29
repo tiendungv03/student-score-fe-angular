@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
+// import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginComponent } from './pages/login/login.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 
@@ -8,11 +8,6 @@ export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: '404', component: NotFoundComponent },
-  {
-    path: 'dashboard',
-    component: DashboardComponent,
-    canActivate: [authGuard], // ← bảo vệ route này
-  },
   {
     path: 'admin',
     canActivate: [authGuard],
@@ -103,47 +98,44 @@ export const routes: Routes = [
         (m) => m.TeachersLayoutComponent
       ),
     children: [
-
- {
-      path: '',
-      redirectTo: 'course-classes',
-      pathMatch: 'full',
-    },
       {
-      path: 'course-classes',
-      loadComponent: () =>
-        import('./pages/teachers/course-classes/course-classes.component').then(
-          (m) => m.CourseClassesComponent
-        ),
+        path: '',
+        redirectTo: 'course-classes',
+        pathMatch: 'full',
       },
-
-       {
-      path: 'course-classes/:maLopHocPhan',
-      loadComponent: () =>
-        import('./pages/teachers/display-sv/display-sv.component').then(
-          (m) => m.DisplaySVComponent
-        ),
+      {
+        path: 'course-classes',
+        loadComponent: () =>
+          import(
+            './pages/teachers/course-classes/course-classes.component'
+          ).then((m) => m.CourseClassesComponent),
       },
 
       {
-      path: 'profile',
-      loadComponent: () =>
-        import('./pages/teachers/profile/profile.component').then(
-          (m) => m.ProfileComponent
-        ),
+        path: 'course-classes/:maLopHocPhan',
+        loadComponent: () =>
+          import('./pages/teachers/display-sv/display-sv.component').then(
+            (m) => m.DisplaySVComponent
+          ),
       },
 
       {
-      path: 'schedule',
-      loadComponent: () =>
-        import('./pages/teachers/schedule/schedule.component').then(
-          (m) => m.ScheduleComponent
-        ),
+        path: 'profile',
+        loadComponent: () =>
+          import('./pages/teachers/profile/profile.component').then(
+            (m) => m.ProfileComponent
+          ),
       },
 
+      {
+        path: 'schedule',
+        loadComponent: () =>
+          import('./pages/teachers/schedule/schedule.component').then(
+            (m) => m.ScheduleComponent
+          ),
+      },
     ],
   },
-
 
   {
     path: '',

@@ -161,19 +161,35 @@ export class DangKyLopHocPhanComponent implements OnInit {
   }
 
   huyDangKy(lop: any) {
-    // this.http
-    //   .delete(`/api/sinhvien/KetQuaHocTap/huy/${lop.maLopHocPhan}`)
-    //   .subscribe({
-    //     next: () => {
-    //       this.snackBar.open('Hủy đăng ký thành công', 'Đóng', {
-    //         duration: 3000,
-    //       });
-    //       this.loadDaDangKy();
-    //     },
-    //     error: () => {
-    //       this.snackBar.open('Hủy thất bại', 'Đóng', { duration: 3000 });
-    //     },
-    //   });
+    const payload = {
+      tenDangNhapSV: this.tenDangNhapSV,
+      maLopHocPhan: lop.maLopHocPhan,
+      maHocKy: lop.maHocKy,
+    };
+
+    if (!payload.tenDangNhapSV) {
+      this.snackBar.open('Không tìm thấy tài khoản sinh viên!', 'Đóng', {
+        duration: 3000,
+      });
+      return;
+    }
+    this.http
+      .deleteSinhVien_KetQuaHT(
+        payload.tenDangNhapSV,
+        payload.maLopHocPhan,
+        payload.maHocKy
+      )
+      .subscribe({
+        next: () => {
+          this.snackBar.open('Hủy đăng ký thành công', 'Đóng', {
+            duration: 3000,
+          });
+          this.loadDaDangKy();
+        },
+        error: () => {
+          this.snackBar.open('Hủy thất bại', 'Đóng', { duration: 3000 });
+        },
+      });
   }
 
   showNotification(

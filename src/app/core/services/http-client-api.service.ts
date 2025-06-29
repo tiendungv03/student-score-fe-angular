@@ -287,4 +287,13 @@ export class HttpClientApiService {
   getKet_qua_hoc_tap(): Observable<any> {
     return this.get(this.keySinhVienKQHoc);
   }
+
+  deleteSinhVien_KetQuaHT(
+    tenSV: string,
+    maLopHocPhan: string,
+    maHocKy: string
+  ): Observable<any> {
+    const keyDel = `${tenSV}/${maLopHocPhan}/${maHocKy}`;
+    return this.delete(this.keySinhVienKQHoc, keyDel);
+  }
 }

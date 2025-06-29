@@ -7,6 +7,8 @@ export interface Khoa {
   tenKhoa: string;
   mota: string;
   trangThai: boolean;
+  ngayThanhLap: Date;
+  ngayKetThuc: Date;
   sinhViens?: SinhVien[];
   giangViens?: GiangVien[];
   hocPhans?: HocPhan[];

@@ -10,4 +10,6 @@ export interface TaiKhoan {
   phanQuyen?: PhanQuyen;
   sinhVien?: SinhVien;
   giangVien?: GiangVien;
+  ngayTao: Date;
+  ngayHetHan: Date;
 }
