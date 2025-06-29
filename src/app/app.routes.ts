@@ -119,6 +119,27 @@ export const routes: Routes = [
             (m) => m.ViewStudentComponent
           ),
       },
+      {
+        path: 'Thoi-khoa-bieu',
+        loadComponent: () =>
+          import('./pages/student/timetable/timetable.component').then(
+            (m) => m.TimetableComponent
+          ),
+      },
+      {
+        path: 'Dang_ky_hoc_phan',
+        loadComponent: () =>
+          import(
+            './pages/student/dang-ky-lop-hoc-phan/dang-ky-lop-hoc-phan.component'
+          ).then((m) => m.DangKyLopHocPhanComponent),
+      },
+      {
+        path: 'Ket_qua_hoc_tap',
+        loadComponent: () =>
+          import(
+            './pages/student/ket-qua-hoc-tap/ket-qua-hoc-tap.component'
+          ).then((m) => m.KetQuaHocTapComponent),
+      },
       { path: '', redirectTo: 'ThongTinSinhVien', pathMatch: 'full' },
     ],
   },

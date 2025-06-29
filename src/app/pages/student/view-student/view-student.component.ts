@@ -7,14 +7,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-view-student',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './view-student.component.html',
-  styleUrl: './view-student.component.scss',
+  styleUrls: ['./view-student.component.scss'],
 })
-export class ViewStudentComponent {
-  private dataApi!: SinhVien;
-  public sinhVien!: SinhVien;
+export class ViewStudentComponent implements OnInit {
+  public sinhVien: any;
   userName: string | null = localStorage.getItem('userName');
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -27,13 +28,14 @@ export class ViewStudentComponent {
   }
 
   loadDataApi() {
-    const tenDangNhap: string = this.userName ?? '';
     if (this.userName) {
-      this.httpClient.getSinhVienById(tenDangNhap).subscribe({
+      this.httpClient.getSinh_Vien_Thong_Tin().subscribe({
         next: (data) => {
-          this.dataApi = data;
-          this.sinhVien = this.dataApi;
-          console.log('datasv', this.sinhVien);
+          this.sinhVien = data;
+          console.log('Thông tin sinh viên:', this.sinhVien);
+        },
+        error: () => {
+          this.showNotification('Không thể tải dữ liệu sinh viên', 'error');
         },
       });
     } else {

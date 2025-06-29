@@ -1,0 +1,21 @@
+.tkb-grid {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  font-size: 14px;
+}
+
+.tkb-grid th,
+.tkb-grid td {
+  border: 1px solid #ccc;
+  padding: 6px;
+  vertical-align: top;
+  min-width: 120px;
+}
+
+.tkb-cell {
+  background-color: #e6f7ff;
+  border-radius: 4px;
+  padding: 4px;
+  margin: 2px 0;
+}

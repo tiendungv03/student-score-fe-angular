@@ -36,6 +36,11 @@ export class HttpClientApiService {
 
   private keyKetQuaHocTapDangki = 'sinhvien/KetQuaHocTap/dang-ki';
 
+  //sinh vien
+  private keySinhVien = 'sinhvien/SinhViens';
+  private keySinhVienKQHoc = 'sinhvien/KetQuaHocTap';
+  private keyHocPhan = 'sinhvien/HocPhans';
+
   //Admin
   private adminGetTaiKhoans = 'admin/TaiKhoans';
   private adminGetKeySinhViens = 'admin/sinhviens';
@@ -210,11 +215,6 @@ export class HttpClientApiService {
     return this.getById(this.adminGetKetQuaHocTap, keyId);
   }
 
-  postKetQuaHocTap(data: any): Observable<any> {
-    const key = `${this.keyKetQuaHocTapDangki}/${'dang-ki'}`;
-    return this.post(key, data);
-  }
-
   putKetQuaHocTap(
     tenSV: string,
     maLop: string,
@@ -234,5 +234,35 @@ export class HttpClientApiService {
   ): Observable<any> {
     const keyDel = `${tenSV}/${maLopHocPhan}/${maHocKy}`;
     return this.delete(this.adminGetKetQuaHocTap, keyDel);
+  }
+
+  //Users
+  getSinh_Vien_Thong_Tin(): Observable<any> {
+    const key = `${this.keySinhVien}/${'thong-tin-ca-nhan'}`;
+    return this.get(key);
+  }
+
+  getThoi_khoa_bieu(): Observable<any> {
+    const key = `${this.keySinhVien}/${'thoi-khoa-bieu'}`;
+    return this.get(key);
+  }
+
+  getHoc_phan(): Observable<any> {
+    const key = `${this.keyHocPhan}`;
+    return this.get(key);
+  }
+
+  getSinh_Vien_LopHocPhan(maHP: string): Observable<any> {
+    const keyId = `${maHP}`;
+    return this.getById(this.keySinhVien, keyId);
+  }
+
+  postKetQuaHocTap(data: any): Observable<any> {
+    const key = `${this.keySinhVienKQHoc}/${'dang-ki'}`;
+    return this.post(key, data);
+  }
+
+  getKet_qua_hoc_tap(): Observable<any> {
+    return this.get(this.keySinhVienKQHoc);
   }
 }

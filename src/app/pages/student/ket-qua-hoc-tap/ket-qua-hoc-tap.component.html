@@ -1,0 +1,24 @@
+<table class="bang-ket-qua">
+  <thead>
+    <tr>
+      <th>Mã học kỳ</th>
+      <th>Tên học phần</th>
+      <th>Điểm QT</th>
+      <th>Điểm thi</th>
+      <th>Điểm tổng kết</th>
+      <th>Điểm hệ 4</th>
+      <th>Xếp loại</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let kq of ketQuaList">
+      <td>{{ kq.maHocKy }}</td>
+      <td>{{ kq.tenHP }}</td>
+      <td>{{ kq.diemQT }}</td>
+      <td>{{ kq.diemThi }}</td>
+      <td>{{ kq.diemTongKet }}</td>
+      <td>{{ kq.diemHe4 }}</td>
+      <td>{{ kq.xepLoai }}</td>
+    </tr>
+  </tbody>
+</table>

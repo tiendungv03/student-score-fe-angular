@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { StudentLayoutComponent } from './student-layout.component';
 
 describe('StudentLayoutComponent', () => {
@@ -8,9 +7,8 @@ describe('StudentLayoutComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [StudentLayoutComponent]
-    })
-    .compileComponents();
+      imports: [StudentLayoutComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(StudentLayoutComponent);
     component = fixture.componentInstance;
