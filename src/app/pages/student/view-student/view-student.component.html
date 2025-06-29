@@ -1,0 +1,12 @@
+<div class="content-view" *ngIf="sinhVien">
+  <h2>Thông tin sinh viên</h2>
+
+  <!-- <p><strong>Tên đăng nhập:</strong> {{ sinhVien.tenDangNhap }}</p> -->
+  <p><strong>Họ tên:</strong> {{ sinhVien.hoTen }}</p>
+  <p><strong>Ngày sinh:</strong> {{ sinhVien.ngaySinh | date }}</p>
+  <p>
+    <strong>Giới tính:</strong> {{ sinhVien.gioiTinh === true ? "Nam" : "Nữ" }}
+  </p>
+  <p><strong>Lớp:</strong> {{ sinhVien.lop }}</p>
+  <p><strong>Khoa:</strong> {{ sinhVien.tenKhoa }}</p>
+</div>

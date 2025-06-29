@@ -73,12 +73,13 @@ export class LoginComponent {
             'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
           ];
 
-        // console.log('Decoded token:', decodedToken);
+        console.log('Decoded token:', decodedToken);
         console.log('User name:', userName);
         console.log('User role:', userRole);
 
         // Lưu token và role
         this.authService.setToken(token);
+        localStorage.setItem('userName', userName);
         localStorage.setItem('userRole', userRole);
 
         // Điều hướng theo role
@@ -90,7 +91,8 @@ export class LoginComponent {
             this.router.navigate(['/teacher']);
             break;
           case 'SinhVien':
-            this.router.navigate(['/student']);
+            // this.router.navigate(['/student']);
+            this.router.navigate(['/ThongTinSinhVien']);
             break;
           default:
             this.router.navigate(['/404']);

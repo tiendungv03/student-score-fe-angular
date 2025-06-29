@@ -1,0 +1,25 @@
+.bang-ket-qua {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+
+  th,
+  td {
+    border: 1px solid #ccc;
+    padding: 8px;
+  }
+
+  thead {
+    background-color: #f0f0f0;
+  }
+
+  .pass {
+    color: green;
+    font-weight: bold;
+  }
+
+  .fail {
+    color: red;
+    font-weight: bold;
+  }
+}

@@ -1,0 +1,27 @@
+<table class="tkb-grid">
+  <thead>
+    <tr>
+      <th>Tiết / Thứ</th>
+      <th *ngFor="let thu of thuList">{{ getThuLabel(thu) }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let tiet of tietList">
+      <td>
+        <strong>Tiết {{ tiet }}</strong>
+      </td>
+      <td *ngFor="let thu of thuList">
+        <ng-container *ngIf="getMonHoc(tiet, thu) as mon">
+          <div class="tkb-cell">
+            <div>
+              <strong>{{ mon.tenHocPhan }}</strong>
+            </div>
+            <div>Phòng: {{ mon.phong }}</div>
+            <div>GV: {{ mon.giangVien }}</div>
+            <div>Tiết: {{ mon.tietDau }} - {{ mon.tietCuoi }}</div>
+          </div>
+        </ng-container>
+      </td>
+    </tr>
+  </tbody>
+</table>

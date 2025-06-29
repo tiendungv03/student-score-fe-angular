@@ -1,0 +1,60 @@
+<div class="form-dang-ky_hoc_phan">
+  <h2>Danh sách lớp học phần</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Mã lớp</th>
+        <th>Tên học phần</th>
+        <th>Phòng</th>
+        <th>Thời gian</th>
+        <th>Sĩ số</th>
+        <th>Hành động</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let lop of danhSachLop">
+        <td>{{ lop.maLopHocPhan }}</td>
+        <td>{{ lop.tenHP }}</td>
+        <td>{{ lop.phong }}</td>
+        <td>
+          {{ lop.ngayBatDauDay | date }} - {{ lop.ngayKetThucDay | date }}
+        </td>
+        <td>{{ lop.siSo }}/{{ lop.siSoToiDa }}</td>
+        <td>
+          <!-- <button (click)="dangKy(lop)">Đăng ký</button> -->
+          <button (click)="dangKy(lop)" [disabled]="isDaDangKy(lop)">
+            Đăng ký
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Các lớp đã đăng ký</h2>
+  <table>
+    <thead>
+      <tr>
+        <!-- <th>Mã lớp</th> -->
+        <th>Tên học phần</th>
+        <th>Phòng</th>
+        <th>Thông tin</th>
+        <th>Hành động</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let lop of daDangKy">
+        <!-- <td>{{ lop.maLopHocPhan }}</td> -->
+        <td>{{ lop.tenHocPhan }}</td>
+        <td>{{ lop.phong }}</td>
+        <td>
+          <p>Thứ: {{ lop.thu }}</p>
+          <p>Tiết {{ lop.tietDau }} - {{ lop.tietCuoi }}</p>
+        </td>
+
+        <td>
+          <button (click)="huyDangKy(lop)">Hủy</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,1 +1,99 @@
-<p>student-layout works!</p>
+<link
+  href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+  rel="stylesheet"
+/>
+<nav class="sidebar" [class.close]="isSidebarClosed">
+  <div class="sidebar-header">
+    <div class="sidebar-header_logo">
+      <div class="img-logo">
+        <img src="/assets/images/logo.svg" alt="Logo" />
+      </div>
+
+      <div class="sidebar-title">
+        <h2>AcademyFlow</h2>
+        <!-- <p>Xin chào, {{ user?.name }}</p>
+        <p>Vai trò: {{ user?.role }}</p> -->
+      </div>
+    </div>
+
+    <!-- <div class="sidebar-header_toggle" (click)="toggleSidebar()">
+      <i class="bx bx-chevron-right toggle"></i>
+    </div> -->
+  </div>
+
+  <div class="sidebar-menu_item" role="navigation">
+    <ul>
+      <li>
+        <a
+          routerLink="/ThongTinSinhVien"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <i class="bx bx-user-pin icon"></i>
+          <span class="text-nav">Thông tin cá nhân</span>
+        </a>
+      </li>
+
+      <li>
+        <a routerLink="/Dang_ky_hoc_phan" routerLinkActive="active">
+          <i class="bx bx-edit-alt icon"></i>
+          <span class="text-nav">Đăng ký lớp học phần</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/Thoi-khoa-bieu" routerLinkActive="active">
+          <i class="bx bx-calendar icon"></i>
+          <span class="text-nav">Lịch học</span>
+        </a>
+      </li>
+
+      <li>
+        <a routerLink="/Ket_qua_hoc_tap" routerLinkActive="active">
+          <i class="bx bx-bar-chart-alt-2 icon"></i>
+          <span class="text-nav">Kết quả học tập</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="sidebar-footer">
+    <div class="logout-nav">
+      <a mat-button (click)="logout()">
+        <i class="bx bx-log-out icon"></i>
+        <span class="text-nav">Đăng xuất</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<header
+  class="header"
+  [style.left]="isSidebarClosed ? '89px' : '250px'"
+  [style.width]="isSidebarClosed ? 'calc(100% - 89px)' : 'calc(100% - 250px)'"
+>
+  <div class="logo">
+    <!-- <img src="assets/logo.png" alt="Logo" /> -->
+    <div class="header-menu_openSlidebar" (click)="toggleSidebar()">
+      <i class="bx bx-menu toggle"></i>
+    </div>
+  </div>
+  <ul class="top-menu">
+    <!-- <li><a routerLink="/admin/users">Item</a></li>
+    <li><a routerLink="/admin/settings">Item</a></li>
+    <li><a routerLink="/admin/reports">Item</a></li> -->
+  </ul>
+  <div class="header-actions">
+    <div class="user-profile">
+      <!-- <img src="assets/user-avatar.png" alt="User Avatar" /> -->
+      <i class="bx bxs-user"></i>
+      <span class="username">
+        Sinh viên: {{ userRole ? " - " + userName : "" }}</span
+      >
+    </div>
+  </div>
+</header>
+
+<main class="content" [style.marginLeft]="isSidebarClosed ? '79px' : '240px'">
+  <!-- Nội dung trang sẽ được hiển thị ở đây -->
+  <router-outlet></router-outlet>
+</main>

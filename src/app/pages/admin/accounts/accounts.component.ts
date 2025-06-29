@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-// import { AccountService } from '../../../core/services/account.service';
+import { phanTrang } from '../../../model/phan-trang';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UpdateAccountComponent } from './update-account/update-account.component';
@@ -19,8 +19,8 @@ import { TaiKhoan } from '../../../model/tai-khoan.model';
   styleUrl: './accounts.component.scss',
 })
 export class AccountsComponent {
-  dataApi: TaiKhoan[] = [];
-  filteredData: TaiKhoan[] = [];
+  dataApi: any[] = [];
+  filteredData: any[] = [];
   searchText = '';
   form!: FormGroup;
   isEditMode = false;
@@ -46,20 +46,39 @@ export class AccountsComponent {
     });
   }
 
+  fullData: TaiKhoan[] = [];
+  pagedData: TaiKhoan[] = [];
+  pageIndex = 1;
+  pageSize = 10;
+  totalCount = 0;
+
   loadAccounts() {
     this.httpClient.getAccounts().subscribe({
-      next: (data) => {
-        // console.log('Danh sách tài khoản:', data);
-        this.dataApi = data;
-        this.filteredData = [...this.dataApi];
-        console.log('acc: ' + JSON.stringify(this.filteredData, null, 2));
+      next: (res) => {
+        this.fullData = res.items; // Lưu toàn bộ danh sách
+        this.totalCount = res.totalCount;
+        this.sliceData(); // Lấy trang đầu tiên
       },
       error: (err) => {
-        console.error('Lỗi khi tải danh sách tài khoản:', err);
         this.showNotification('Không thể tải danh sách tài khoản', 'error');
       },
     });
   }
+
+  // loadAccounts() {
+  //   this.httpClient.getAccounts().subscribe({
+  //     next: (data) => {
+  //       // console.log('Danh sách tài khoản:', data);
+  //       this.dataApi = data;
+  //       this.filteredData = [...this.dataApi];
+  //       // console.log('acc: ' + JSON.stringify(this.filteredData, null, 2));
+  //     },
+  //     error: (err) => {
+  //       console.error('Lỗi khi tải danh sách tài khoản:', err);
+  //       this.showNotification('Không thể tải danh sách tài khoản', 'error');
+  //     },
+  //   });
+  // }
 
   filterAccounts() {
     const search = this.searchText.trim().toLowerCase();
@@ -76,6 +95,31 @@ export class AccountsComponent {
         role.includes(search)
       );
     });
+  }
+
+  sliceData() {
+    const start = (this.pageIndex - 1) * this.pageSize;
+    const end = start + this.pageSize;
+    this.pagedData = this.fullData.slice(start, end);
+  }
+
+  nextPage() {
+    if (this.pageIndex * this.pageSize < this.totalCount) {
+      this.pageIndex++;
+      this.loadAccounts();
+    }
+  }
+
+  prevPage() {
+    if (this.pageIndex > 1) {
+      this.pageIndex--;
+      this.loadAccounts();
+    }
+  }
+
+  onPageChange(newPage: number) {
+    this.pageIndex = newPage;
+    this.sliceData();
   }
 
   createAccount() {

@@ -7,6 +7,8 @@ export interface GiangVien {
   hoTen: string;
   bomon: string;
   maKhoa: string;
+  ngayBatDauGiangDay: Date;
+  ngayKetThucGiangDay: Date;
   trangThai: boolean;
   taiKhoan?: TaiKhoan;
   khoa?: Khoa;

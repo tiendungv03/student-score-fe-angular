@@ -33,7 +33,7 @@
         </tr>
       </thead>
       <tbody>
-        <ng-container *ngFor="let acc of filteredData">
+        <ng-container *ngFor="let acc of pagedData">
           <tr>
             <td>{{ acc.tenDangNhap }}</td>
             <!-- Họ tên -->
@@ -69,7 +69,7 @@
             <!-- Trạng thái -->
             <td class="action-buttons">
               <!-- Xem -->
-              <button title="Xem chi tiết" class="icon-button view">Xem</button>
+              <!-- <button title="Xem chi tiết" class="icon-button view">Xem</button> -->
               <!-- Sửa -->
               <button
                 title="Chỉnh sửa"
@@ -91,5 +91,17 @@
         </ng-container>
       </tbody>
     </table>
+  </div>
+  <div class="pagination">
+    <button (click)="onPageChange(pageIndex - 1)" [disabled]="pageIndex <= 1">
+      <i class="bx bx-left-arrow-alt"></i>
+    </button>
+    <span>Trang {{ pageIndex }}</span>
+    <button
+      (click)="onPageChange(pageIndex + 1)"
+      [disabled]="pageIndex * pageSize >= totalCount"
+    >
+      <i class="bx bx-right-arrow-alt"></i>
+    </button>
   </div>
 </div>
