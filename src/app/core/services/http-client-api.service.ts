@@ -1,8 +1,7 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
-import { HocPhan } from '../../model/hoc-phan.model';
 
 @Injectable({
   providedIn: 'root',
@@ -33,6 +32,13 @@ export class HttpClientApiService {
   private keyHocPhans = 'HocPhans';
   private keyLopHocPhans = 'LopHocPhans';
   private keyHocKies = 'HocKys';
+
+  //giangvien
+  private giangvienKeyThoiKhoaBieu = 'giangvien/GiangViens/thoi-khoa-bieu';
+  private giangvienKeyThongTinGiangVien =
+    'giangvien/GiangViens/thong-tin-giang-vien';
+  private giangvienKeyLopHocPhan = 'giangvien/GiangViens/lop-hoc-phan';
+  private giangvienKeySVL = 'giangvien/GiangViens/sinh-vien-lop';
 
   private keyKetQuaHocTapDangki = 'sinhvien/KetQuaHocTap/dang-ki';
 
@@ -158,6 +164,22 @@ export class HttpClientApiService {
 
   deleteTeachers(tenDangNhap: string): Observable<any> {
     return this.delete(this.adminGetKeyGiangViens, tenDangNhap);
+  }
+
+  getThongTinGiangVien(): Observable<any> {
+    return this.get(this.giangvienKeyThongTinGiangVien);
+  }
+
+  getThoiKhoaBieu(): Observable<any> {
+    return this.get(this.giangvienKeyThoiKhoaBieu);
+  }
+
+  getLopHocPhanByGiangVien(): Observable<any> {
+    return this.get(this.giangvienKeyLopHocPhan);
+  }
+
+  getSinhVienLop(maLopHocPhan: string): Observable<any> {
+    return this.getById(this.giangvienKeySVL, maLopHocPhan);
   }
 
   // ========== Học kỳ ==========

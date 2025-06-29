@@ -1,0 +1,36 @@
+<div class="content-table">
+    <h2 class="text-xl mb-4">Danh sách sinh viên đăng ký lớp học phần {{ maLopHocPhan }} </h2>
+
+
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <!-- <th>Tên đăng nhập</th> -->
+                    <th>Họ tên</th>
+                    <th>Ngày sinh</th>
+                    <th>Giới tính</th>
+                    <th>Lớp</th>
+
+                    <th>Trạng thái</th>
+                </tr>
+            </thead>
+            <tbody>
+
+
+                <tr *ngFor="let sv of danhSachSinhVien">
+                    <!-- <td>{{ sv.tenDangNhap }}</td> -->
+                    <td>{{ sv.hoTen }}</td>
+                    <td>{{ sv.ngaySinh | date }}</td>
+                    <td>{{ sv.gioiTinh ? 'Nam' : 'Nữ' }}</td>
+                    <td>{{ sv.lop }}</td>
+
+                    <td>{{ sv.trangThai ? 'True' : 'False' }}</td>
+                </tr>
+
+
+            </tbody>
+        </table>
+    </div>
+</div>
