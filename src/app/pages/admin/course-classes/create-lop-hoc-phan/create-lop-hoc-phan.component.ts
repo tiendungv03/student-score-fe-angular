@@ -38,9 +38,12 @@ export class CreateLopHocPhanComponent implements OnInit {
     this.createFormData = this.fb.group({
       maLopHocPhan: ['', Validators.required],
       maHP: ['', Validators.required],
+      // tenDangNhapGV: ['', Validators.required],
       tenDangNhapGV: ['', Validators.required],
       maHocKy: ['', Validators.required],
-      // siSo: ['', Validators.required],
+      siSoToiDa: [null, [Validators.required, Validators.min(15)]],
+      tietHocId: ['', Validators.required],
+      phong: ['', Validators.required],
     });
 
     this.httpClient.getTeachers().subscribe({

@@ -135,12 +135,13 @@ export class CourseClassesComponent {
       },
     });
     dialogRef.afterClosed().subscribe((confirmed) => {
-      if (confirmed) this.deleteData(lopHocPhan.maLopHocPhan);
+      if (confirmed)
+        this.deleteData(lopHocPhan.maLopHocPhan, lopHocPhan.maHocKy);
     });
   }
 
-  deleteData(maLopHocPhan: string) {
-    this.httpClient.deleteLopHocPhans(maLopHocPhan).subscribe({
+  deleteData(maLopHocPhan: string, maHocKy: string) {
+    this.httpClient.deleteLopHocPhans(maLopHocPhan, maHocKy).subscribe({
       next: () => {
         this.showNotification('Đã Xoá lớp học phần!', 'success');
 

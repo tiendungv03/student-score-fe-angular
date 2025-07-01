@@ -22,6 +22,7 @@ export class UpdateSinhVienComponent implements OnInit {
   updateFormData!: FormGroup;
   khoas: Khoa[] = [];
   loading = false;
+  snackBar: any;
 
   constructor(
     private fb: FormBuilder,
@@ -78,6 +79,12 @@ export class UpdateSinhVienComponent implements OnInit {
     if (tenDangNhap) {
       this.httpClient.putStudent(tenDangNhap, updatedData).subscribe({
         next: () => {
+          // this.snackBar.open('Đã thành công!', 'Đóng', {
+          //   duration: 3000,
+          //   horizontalPosition: 'end',
+          //   verticalPosition: 'top',
+          //   panelClass: ['snackbar-success'],
+          // });
           this.dialogRef.close(true);
         },
         error: (error) => {

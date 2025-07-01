@@ -40,54 +40,60 @@ export class UpdateLopHocPhanComponent implements OnInit {
     private httpClient: HttpClientApiService,
     private dialogRef: MatDialogRef<UpdateLopHocPhanComponent>,
     private snackBar: MatSnackBar,
-    @Inject(MAT_DIALOG_DATA) public data: { lopHocPhan?: LopHocPhan }
+    @Inject(MAT_DIALOG_DATA) public data: { lopHocPhan?: any }
   ) {}
 
   ngOnInit(): void {
-    const lopHocPhan = this.data?.lopHocPhan || ({} as LopHocPhan);
+    const lopHocPhan = this.data?.lopHocPhan;
 
     this.updateFormData = this.fb.group({
       maLopHocPhan: [lopHocPhan.maLopHocPhan || '', Validators.required],
-      maHP: [lopHocPhan.maHP || '', Validators.required],
-      tenDangNhapGV: [lopHocPhan.tenDangNhapGV || '', Validators.required],
-      maHocKy: [lopHocPhan.maHocKy || '', Validators.required],
-      // siSo: ['', Validators.required],
+      tietHocId: [lopHocPhan.tietHocId || '', Validators.required],
+      phong: [lopHocPhan.phong || '', Validators.required],
+      // tenDangNhapGVMoi: ['', Validators.required],
+      tenDangNhapGV: ['', Validators.required],
+      siSoToiDa: [lopHocPhan.phong || '', Validators.required],
     });
 
     this.loading = true;
-    this.httpClient.getTeachers().subscribe({
-      next: (data) => {
-        this.giangViens = data.items;
-      },
-    });
+    // this.httpClient.getTeachers().subscribe({
+    //   next: (data) => {
+    //     this.giangViens = data.items;
+    //   },
+    // });
 
-    this.httpClient.getLopHocPhans().subscribe({
-      next: (data) => {
-        this.lopHocPhans = data.items;
-      },
-    });
+    // this.httpClient.getLopHocPhans().subscribe({
+    //   next: (data) => {
+    //     this.lopHocPhans = data.items;
+    //   },
+    // });
 
-    this.httpClient.getHocPhans().subscribe({
-      next: (data) => {
-        this.hocPhans = data.items;
-      },
-    });
+    // this.httpClient.getHocPhans().subscribe({
+    //   next: (data) => {
+    //     this.hocPhans = data.items;
+    //   },
+    // });
 
-    this.httpClient.getHocKies().subscribe({
-      next: (data) => {
-        this.hocKys = data.items;
-      },
-    });
+    // this.httpClient.getHocKies().subscribe({
+    //   next: (data) => {
+    //     this.hocKys = data.items;
+    //   },
+    // });
   }
 
   onSubmit() {
-    if (this.updateFormData.invalid) {
-      this.updateFormData.markAllAsTouched();
-      return;
-    }
+    // if (this.updateFormData.invalid) {
+    //   return;
+    // }
 
-    const updatedData = this.updateFormData.getRawValue();
+    const updatedData = {
+      tietHocId: this.updateFormData.get('tietHocId')?.value,
+      phong: this.updateFormData.get('phong')?.value,
+      tenDangNhapGVMoi: this.updateFormData.get('tenDangNhapGVMoi')?.value,
+      siSoToiDa: this.updateFormData.get('siSoToiDa')?.value,
+    };
     const maLopHocPhan = this.data?.lopHocPhan?.maLopHocPhan;
+    const maHocKi = this.data?.lopHocPhan?.maHocKy;
 
     if (updatedData) {
       if (!maLopHocPhan) {
@@ -97,16 +103,18 @@ export class UpdateLopHocPhanComponent implements OnInit {
         );
         return;
       }
-      this.httpClient.putLopHocPhans(maLopHocPhan, updatedData).subscribe({
-        next: () => {
-          this.showNotification('Đã cập nhật học phần!', 'success');
-          this.dialogRef.close(true);
-        },
-        error: (error) => {
-          console.error('Lỗi khi cập nhật lớp học phần:', error);
-          this.showNotification('Lỗi khi cập nhật lớp học phần!', 'error');
-        },
-      });
+      this.httpClient
+        .patchLopHocPhans(maLopHocPhan, maHocKi, updatedData)
+        .subscribe({
+          next: () => {
+            this.showNotification('Đã cập nhật học phần!', 'success');
+            this.dialogRef.close(true);
+          },
+          error: (error) => {
+            console.error('Lỗi khi cập nhật lớp học phần:', error);
+            this.showNotification('Lỗi khi cập nhật lớp học phần!', 'error');
+          },
+        });
     }
   }
 

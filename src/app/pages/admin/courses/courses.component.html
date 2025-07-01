@@ -28,6 +28,7 @@
           <th>Số tín chỉ</th>
           <th>Yêu cầu</th>
           <th>Khoa</th>
+          <th>Trạng thái</th>
           <th>Thao tác</th>
         </tr>
       </thead>
@@ -40,6 +41,7 @@
             <td>{{ hocPhans.soTinChi }}</td>
             <td>{{ hocPhans.batBuoc ? "Bắt buộc" : "Không bắt buộc" }}</td>
             <td>{{ hocPhans.khoa?.tenKhoa }}</td>
+            <td>{{ hocPhans.trangThai ? "Hoạt động" : "Bị xóa" }}</td>
             <td class="action-buttons">
               <!-- Xem -->
               <!-- <button title="Xem chi tiết" class="icon-button view">Xem</button> -->

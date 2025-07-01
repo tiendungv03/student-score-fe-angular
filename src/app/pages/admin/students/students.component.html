@@ -27,17 +27,20 @@
           <th>Ngày sinh</th>
           <th>Lớp</th>
           <th>Khoa</th>
+          <th>Trạng thái</th>
           <th>Thao tác</th>
         </tr>
       </thead>
       <tbody>
         <ng-container *ngFor="let sinhVien of pagedData">
-          <tr *ngIf="sinhVien.trangThai">
+          <!-- <tr *ngIf="sinhVien.trangThai"> -->
+          <tr>
             <td>{{ sinhVien.tenDangNhap }}</td>
             <td>{{ sinhVien.hoTen }}</td>
             <td>{{ sinhVien.ngaySinh | date : "dd/MM/yyyy" }}</td>
             <td>{{ sinhVien.lop }}</td>
             <td>{{ sinhVien.khoa?.tenKhoa || sinhVien.maKhoa }}</td>
+            <td>{{ sinhVien.trangThai ? "Hoạt động" : "Bị xóa" }}</td>
             <td class="action-buttons">
               <button
                 title="Xem chi tiết"

@@ -50,7 +50,7 @@ export class CreateGiaoVienComponent implements OnInit {
 
     this.httpClient.getAccounts().subscribe({
       next: (data) => {
-        this.user = data;
+        this.user = data.items;
       },
     });
   }

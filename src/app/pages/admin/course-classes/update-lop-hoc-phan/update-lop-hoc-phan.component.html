@@ -29,14 +29,14 @@
     </div>
 
     <div class="form-group">
-      <label for="maHP">Học phần:</label>
-      <input type="text" id="maHP" formControlName="maHP" list="dsHocPhan" />
+      <label for="tietHocId">Nhập id tiết học:</label>
+      <input type="text" id="tietHocId" formControlName="tietHocId" />
 
-      <datalist id="dsHocPhan">
+      <!-- <datalist id="dsHocPhan">
         <option *ngFor="let hocPhan of hocPhans" [value]="hocPhan.maHP">
           {{ hocPhan.tenHP }} - mã học phần: {{ hocPhan.maHP }}
         </option>
-      </datalist>
+      </datalist> -->
 
       <div
         *ngIf="
@@ -46,19 +46,14 @@
         class="error"
         style="color: red"
       >
-        Vui lòng chọn học phần.
+        Vui lòng id tiết học.
       </div>
     </div>
 
     <div class="form-group">
-      <label for="tenDangNhapGV">Tên đăng nhập giáo viên:</label>
-      <input
-        type="text"
-        id="tenDangNhapGV"
-        formControlName="tenDangNhapGV"
-        list="dsgiangVien"
-      />
-
+      <label for="tenDangNhapGV">Giáo viên mới :</label>
+      <input type="text" id="tenDangNhapGV" formControlName="tenDangNhapGV" />
+      <!-- 
       <datalist id="dsgiangVien">
         <option
           *ngFor="let giangVien of giangViens"
@@ -66,12 +61,12 @@
         >
           <p>{{ giangVien.hoTen }} - khoa: {{ giangVien.khoa?.tenKhoa }}</p>
         </option>
-      </datalist>
+      </datalist> -->
 
       <div
         *ngIf="
-          updateFormData.get('tenDangNhapGV')?.invalid &&
-          updateFormData.get('tenDangNhapGV')?.touched
+          updateFormData.get('tenDangNhapGVMoi')?.invalid &&
+          updateFormData.get('tenDangNhapGVMoi')?.touched
         "
         class="error"
         style="color: red"
@@ -81,6 +76,22 @@
     </div>
 
     <div class="form-group">
+      <label for="phong">Phòng:</label>
+      <input type="text" id="phong" formControlName="phong" />
+
+      <div
+        *ngIf="
+          updateFormData.get('siSoToiDa')?.invalid &&
+          updateFormData.get('siSoToiDa')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Vui lòng nhập sĩ số hoặc tối thiếu 15.
+      </div>
+    </div>
+
+    <!-- <div class="form-group">
       <label for="maHocKy">Mã học kỳ:</label>
       <input
         type="text"
@@ -105,28 +116,26 @@
       >
         Vui lòng nhập mã học kỳ.
       </div>
-    </div>
+    </div> -->
 
-    <!-- <div class="form-group">
-      <label for="soTinChi">Sĩ số:</label>
-      <input type="number" id="siSo" formControlName="siSo" min="15" />
+    <div class="form-group">
+      <label for="siSoToiDa">Sĩ số tối đa:</label>
+      <input type="number" id="siSoToiDa" formControlName="siSoToiDa" />
 
       <div
         *ngIf="
-          createFormData.get('siSo')?.invalid &&
-          createFormData.get('siSo')?.touched
+          updateFormData.get('siSoToiDa')?.invalid &&
+          updateFormData.get('siSoToiDa')?.touched
         "
         class="error"
         style="color: red"
       >
-        Vui lòng nhập sĩ số và tối thiếu 15.
+        Vui lòng nhập sĩ số hoặc tối thiếu 15.
       </div>
-    </div> -->
+    </div>
 
     <div class="form-actions">
-      <button type="submit" [disabled]="updateFormData.invalid">
-        Cập nhật
-      </button>
+      <button type="submit" (click)="onSubmit()">Cập nhật</button>
       <button type="button" (click)="onCancel()">Hủy</button>
     </div>
   </form>

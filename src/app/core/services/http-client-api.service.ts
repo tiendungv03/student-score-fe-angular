@@ -80,6 +80,11 @@ export class HttpClientApiService {
     return this.http.put<any>(url, data, this.getHttpOptions());
   }
 
+  private patch(keyUrlApi: string, id: string, data: any): Observable<any> {
+    const url = `${this.apiUrl}/${keyUrlApi}/${id}`;
+    return this.http.patch<any>(url, data, this.getHttpOptions());
+  }
+
   private delete(keyUrlApi: string, id: string): Observable<any> {
     const url = `${this.apiUrl}/${keyUrlApi}/${id}`;
     return this.http.delete<any>(url, this.getHttpOptions());
@@ -187,6 +192,24 @@ export class HttpClientApiService {
     return this.get(this.adminGetHocKys);
   }
 
+  // getTiet_hoc(): Observable<any> {
+  //   const key = `${this.adminGetTietHocs}`;
+  //   return this.get(key);
+  // }
+
+  postHoc_ky(data: any): Observable<any> {
+    return this.post(this.adminGetHocKys, data);
+  }
+
+  putHoc_ky(maHocKi: string, data: any): Observable<any> {
+    return this.put(this.adminGetHocKys, maHocKi, data);
+  }
+
+  deleteHoc_ky(maHocKi: string): Observable<any> {
+    // const url = `${this.adminGetKeyLopHocPhans}/${maLopHocPhan}/${maHocKy}`
+    return this.delete(this.adminGetHocKys, maHocKi);
+  }
+
   // ========== Học phần ==========
   getHocPhans(): Observable<any> {
     return this.get(this.adminGetKeyHocPhans);
@@ -215,16 +238,23 @@ export class HttpClientApiService {
   }
 
   postLopHocPhans(data: any): Observable<any> {
+    // const key = `${this.adminGetKeyLopHocPhans}/${maLopHocPhan}/${maHocKy}`;
     return this.post(this.adminGetKeyLopHocPhans, data);
   }
 
-  putLopHocPhans(maLopHocPhan: string, data: any): Observable<any> {
-    return this.put(this.adminGetKeyLopHocPhans, maLopHocPhan, data);
+  patchLopHocPhans(
+    maLopHocPhan: string,
+    maHocKy: string,
+    data: any
+  ): Observable<any> {
+    const key = `${this.adminGetKeyLopHocPhans}`;
+    const id = `${maLopHocPhan}/${maHocKy}`;
+    return this.patch(key, id, data);
   }
 
-  deleteLopHocPhans(maLopHocPhan: string): Observable<any> {
-    // const url = `${this.adminGetKeyLopHocPhans}/${maLopHocPhan}/${maHocKy}`
-    return this.delete(this.adminGetKeyLopHocPhans, maLopHocPhan);
+  deleteLopHocPhans(maLopHocPhan: string, maHocKy: string): Observable<any> {
+    const url = `${maLopHocPhan}/${maHocKy}`;
+    return this.delete(this.adminGetKeyLopHocPhans, url);
   }
 
   // ========== Kết quả học tập ==========
@@ -256,6 +286,25 @@ export class HttpClientApiService {
   ): Observable<any> {
     const keyDel = `${tenSV}/${maLopHocPhan}/${maHocKy}`;
     return this.delete(this.adminGetKetQuaHocTap, keyDel);
+  }
+
+  // ========== Tiết học ==========
+  getTiet_hoc(): Observable<any> {
+    const key = `${this.adminGetTietHocs}`;
+    return this.get(key);
+  }
+
+  postTiet_hoc(data: any): Observable<any> {
+    return this.post(this.adminGetTietHocs, data);
+  }
+
+  putTiet_hoc(maLopHocPhan: string, data: any): Observable<any> {
+    return this.put(this.adminGetTietHocs, maLopHocPhan, data);
+  }
+
+  deleteTiet_hoc(maLopHocPhan: string): Observable<any> {
+    // const url = `${this.adminGetKeyLopHocPhans}/${maLopHocPhan}/${maHocKy}`
+    return this.delete(this.adminGetTietHocs, maLopHocPhan);
   }
 
   //Users

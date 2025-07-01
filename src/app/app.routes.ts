@@ -87,6 +87,20 @@ export const routes: Routes = [
             './pages/admin/course-classes/view-lop-hoc-phan/view-lop-hoc-phan.component'
           ).then((m) => m.ViewLopHocPhanComponent),
       },
+      {
+        path: 'tiet_hoc',
+        loadComponent: () =>
+          import('./pages/admin/tiet-hoc/tiet-hoc.component').then(
+            (m) => m.TietHocComponent
+          ),
+      },
+      {
+        path: 'hoc_ki',
+        loadComponent: () =>
+          import('./pages/admin/hoc-ky/hoc-ky.component').then(
+            (m) => m.HocKyComponent
+          ),
+      },
     ],
   },
 

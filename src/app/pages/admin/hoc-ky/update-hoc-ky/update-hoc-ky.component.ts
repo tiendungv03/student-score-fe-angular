@@ -5,55 +5,55 @@ import { HttpClientApiService } from '../../../../core/services/http-client-api.
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Khoa } from '../../../../model/khoa.model';
+// import { HocTiet } from '../../../../model/hoc-tiet.model';
 
 @Component({
-  selector: 'app-update-khoa',
+  selector: 'app-update-hoc-ky',
   imports: [FormsModule, ReactiveFormsModule, CommonModule],
-  templateUrl: './update-khoa.component.html',
-  styleUrl: './update-khoa.component.scss',
+  templateUrl: './update-hoc-ky.component.html',
+  styleUrl: './update-hoc-ky.component.scss',
 })
-export class UpdateKhoaComponent implements OnInit {
-  updateFormData!: FormGroup;
+export class UpdateHocKyComponent implements OnInit {
+  form!: FormGroup;
 
   constructor(
     private fb: FormBuilder,
-    private httpClient: HttpClientApiService,
-    private dialogRef: MatDialogRef<UpdateKhoaComponent>,
+    private http: HttpClientApiService,
+    private dialogRef: MatDialogRef<UpdateHocKyComponent>,
     private snackBar: MatSnackBar,
-    @Inject(MAT_DIALOG_DATA) public data: { khoa?: Khoa }
+    @Inject(MAT_DIALOG_DATA) public data: { hocKi?: any }
   ) {}
 
   ngOnInit(): void {
-    const Khoa = this.data?.khoa;
+    const hk = this.data?.hocKi;
 
-    this.updateFormData = this.fb.group({
-      makhoa: [Khoa?.makhoa || '', Validators.required],
-      tenKhoa: [Khoa?.tenKhoa || '', Validators.required],
-      mota: [Khoa?.mota || '', Validators.required],
-      ngayTao: [Khoa?.ngayThanhLap ?? Date, Validators.required],
-      ngayHetHan: [Khoa?.ngayKetThuc ?? Date],
-      trangThai: [Khoa?.trangThai ?? true],
+    this.form = this.fb.group({
+      maHocKy: [hk?.maHocKy || '', Validators.required],
+      namHoc: [hk?.namHoc || '', Validators.required],
+      hocKySo: [hk?.hocKySo ?? 1, [Validators.required, Validators.min(1)]],
+      ngayBatDauHocKy: [hk?.ngayBatDauHocKy || '', Validators.required],
+      ngayKetThucHocKy: [hk?.ngayKetThucHocKy || '', Validators.required],
+      trangThai: [hk?.trangThai ?? true],
     });
   }
 
   onSubmit() {
-    if (this.updateFormData.invalid) {
+    if (this.form.invalid) {
       this.showNotification('Vui lòng điền đầy đủ thông tin!', 'warn');
       return;
     }
 
-    const dataTemp = this.updateFormData.value;
-    const makhoa = this.data?.khoa?.makhoa;
+    const updatedData = this.form.value;
+    const maHocKy = this.data?.hocKi?.maHocKy;
 
-    if (makhoa) {
-      this.httpClient.updateDepartments(makhoa, dataTemp).subscribe({
+    if (maHocKy) {
+      this.http.putHoc_ky(maHocKy, updatedData).subscribe({
         next: () => {
-          this.showNotification('Cập nhật khoa thành công!', 'success');
+          this.showNotification('Cập nhật học kỳ thành công!', 'success');
           this.dialogRef.close(true);
         },
         error: () => {
-          this.showNotification('Cập nhật khoa thất bại!', 'error');
+          this.showNotification('Cập nhật thất bại!', 'error');
         },
       });
     }
