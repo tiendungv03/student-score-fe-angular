@@ -1,1 +1,81 @@
-<p>departments works!</p>
+<div class="content-table">
+  <h2 class="text-xl mb-4">Quản lý khoa</h2>
+
+  <div class="content-title">
+    <div class="content-title_search">
+      <input
+        type="text"
+        [(ngModel)]="searchText"
+        (input)="filterData()"
+        placeholder="Tìm kiếm khoa..."
+        class="border p-2 rounded w-1/3"
+      />
+      <!-- <button class="bg-blue-500 text-white btn-search">+ Tìm</button> -->
+    </div>
+    <div class="content-title_createAccount">
+      <button class="create-user bg-blue-500" (click)="createKhoa()">
+        Thêm khoa
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loading">Đang tải dữ liệu...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+  <div *ngIf="!loading && !error" class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Mã khoa</th>
+          <th>Tên khoa</th>
+          <th>Mô tả</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let khoa of pagedData">
+          <!-- <ng-container *ngFor="let tk of quyen.taiKhoans"> -->
+          <tr>
+            <td>{{ khoa.makhoa }}</td>
+            <td>{{ khoa.tenKhoa }}</td>
+            <td>{{ khoa.mota }}</td>
+            <td>{{ khoa.trangThai ? "Hoạt động" : "Ngừng hoạt động" }}</td>
+            <td class="action-buttons">
+              <!-- Xem -->
+              <!-- <button title="Xem chi tiết" class="icon-button view">Xem</button> -->
+              <!-- Sửa -->
+              <button
+                title="Chỉnh sửa"
+                class="icon-button edit"
+                (click)="updateKhoa(khoa)"
+              >
+                Sửa
+              </button>
+              <!-- Xóa -->
+              <button
+                title="Xóa"
+                class="icon-button delete"
+                (click)="confirmDelete(khoa)"
+              >
+                Xóa
+              </button>
+            </td>
+          </tr>
+        </ng-container>
+        <!-- </ng-container> -->
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pagination">
+    <button (click)="onPageChange(pageIndex - 1)" [disabled]="pageIndex <= 1">
+      <i class="bx bx-left-arrow-alt"></i>
+    </button>
+    <span>Trang {{ pageIndex }}</span>
+    <button
+      (click)="onPageChange(pageIndex + 1)"
+      [disabled]="pageIndex * pageSize >= totalCount"
+    >
+      <i class="bx bx-right-arrow-alt"></i>
+    </button>
+  </div>
+</div>

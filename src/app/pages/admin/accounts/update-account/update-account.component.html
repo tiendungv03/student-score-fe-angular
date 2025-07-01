@@ -1,0 +1,84 @@
+<div class="from-dialog">
+  <h2>Cập nhật tài khoản</h2>
+
+  <form
+    [formGroup]="accountForm"
+    (ngSubmit)="onSubmit()"
+    class="form-container"
+  >
+    <div class="form-group">
+      <label for="tenDangNhap">Tên đăng nhập:</label>
+      <input
+        type="text"
+        id="tenDangNhap"
+        formControlName="tenDangNhap"
+        readonly
+        class="readonly-gray"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="matKhau">Mật khẩu:</label>
+      <div class="password-wrapper">
+        <input
+          [type]="hidePassword ? 'password' : 'text'"
+          id="matKhau"
+          formControlName="matKhau"
+        />
+        <button
+          type="button"
+          (click)="hidePassword = !hidePassword"
+          class="toggle-btn"
+        >
+          <i class="bx" [ngClass]="hidePassword ? 'bx-show' : 'bxs-hide'"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="idPhanQuyen">Phân quyền:</label>
+
+      <select id="idPhanQuyen" formControlName="idPhanQuyen">
+        <option value="" selected="selected">Chọn quyền</option>
+        <option value="1">Admin</option>
+        <option value="2">Giáo viên</option>
+        <option value="3">Sinh viên</option>
+      </select>
+
+      <div
+        *ngIf="
+          accountForm.get('idPhanQuyen')?.invalid &&
+          accountForm.get('idPhanQuyen')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Vui lòng chọn phân quyền.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="ngayTao">Ngày tạo:</label>
+      <input type="date" id="ngayTao" formControlName="ngayTao" />
+    </div>
+
+    <div class="form-group">
+      <label for="ngayHetHan">Ngày hết hạn:</label>
+      <input type="date" id="ngayHetHan" formControlName="ngayHetHan" />
+    </div>
+
+    <div class="form-group">
+      <label>
+        <input type="checkbox" formControlName="trangThai" />
+        {{
+          accountForm.get("trangThai")?.value ? "Hoạt động" : "Ngừng hoạt động"
+        }}
+      </label>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" [disabled]="accountForm.invalid">Cập nhật</button>
+      <button type="button" (click)="onCancel()">Hủy</button>
+    </div>
+  </form>
+</div>

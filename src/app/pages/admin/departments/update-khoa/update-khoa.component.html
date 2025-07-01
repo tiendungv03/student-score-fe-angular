@@ -1,0 +1,101 @@
+<div class="from-dialog">
+  <h2>Cập nhật khoa</h2>
+
+  <form
+    [formGroup]="updateFormData"
+    (ngSubmit)="onSubmit()"
+    class="form-container"
+  >
+    <div class="form-group">
+      <label for="tenDangNhap">Mã khoa:</label>
+      <input
+        type="text"
+        id="tenKhoa"
+        formControlName="makhoa"
+        readonly
+        class="readonly-gray"
+      />
+      <div
+        *ngIf="
+          updateFormData.get('makhoa')?.invalid &&
+          updateFormData.get('makhoa')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Mã khoa là bắt buộc.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="tenDangNhap">Tên khoa:</label>
+      <input type="text" id="tenKhoa" formControlName="tenKhoa" />
+      <div
+        *ngIf="
+          updateFormData.get('tenKhoa')?.invalid &&
+          updateFormData.get('tenKhoa')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Tên khoa là bắt buộc.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="idPhanQuyen">Mô tả:</label>
+      <textarea
+        placeholder="Mô tả về khoa"
+        formControlName="mota"
+        style="
+          padding: 8px 12px;
+          border: 1px solid #ccc;
+          border-radius: 6px;
+          font-size: 15px;
+          resize: vertical;
+          font-family: inherit;
+          min-height: 80px;
+        "
+      ></textarea>
+
+      <div
+        *ngIf="
+          updateFormData.get('idPhanQuyen')?.invalid &&
+          updateFormData.get('idPhanQuyen')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Vui lòng nhập mô tả
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="ngayThanhLap">Ngày tạo:</label>
+      <input type="date" id="ngayThanhLap" formControlName="ngayThanhLap" />
+    </div>
+
+    <div class="form-group">
+      <label for="ngayKetThuc">Ngày hết hạn:</label>
+      <input type="date" id="ngayKetThuc" formControlName="ngayKetThuc" />
+    </div>
+
+    <div class="form-group">
+      <label>
+        <input type="checkbox" formControlName="trangThai" />
+        {{
+          updateFormData.get("trangThai")?.value
+            ? "Hoạt động"
+            : "Ngừng hoạt động"
+        }}
+      </label>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" [disabled]="updateFormData.invalid">
+        Cập nhật
+      </button>
+      <button type="button" (click)="onCancel()">Hủy</button>
+    </div>
+  </form>
+</div>

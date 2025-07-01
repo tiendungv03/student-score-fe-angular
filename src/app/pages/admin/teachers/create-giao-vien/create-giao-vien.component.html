@@ -1,0 +1,83 @@
+<div class="from-dialog">
+  <h2>Thêm giáo viên mới</h2>
+
+  <form
+    [formGroup]="createFormData"
+    (ngSubmit)="onSubmit()"
+    class="form-container"
+  >
+    <div class="form-group">
+      <label for="tenDangNhap">Tên đăng nhập:</label>
+      <input type="text" id="tenDangNhap" formControlName="tenDangNhap" />
+
+      <div
+        *ngIf="
+          createFormData.get('tenDangNhap')?.invalid &&
+          createFormData.get('tenDangNhap')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Vui lòng nhập tên đăng nhập.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="hoTen">Họ và tên:</label>
+      <input type="text" id="hoTen" formControlName="hoTen" />
+
+      <div
+        *ngIf="
+          createFormData.get('hoTen')?.invalid &&
+          createFormData.get('hoTen')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Vui lòng nhập họ tên.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="bomon">Bộ môn:</label>
+      <input type="text" id="bomon" formControlName="bomon" />
+
+      <div
+        *ngIf="
+          createFormData.get('bomon')?.invalid &&
+          createFormData.get('bomon')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Vui lòng nhập bộ môn.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="maKhoa">Khoa:</label>
+      <select id="maKhoa" formControlName="maKhoa">
+        <option value="" disabled selected>Chọn khoa</option>
+        <option *ngFor="let khoa of khoas" [value]="khoa.makhoa">
+          {{ khoa.tenKhoa }}
+        </option>
+      </select>
+
+      <div
+        *ngIf="
+          createFormData.get('maKhoa')?.invalid &&
+          createFormData.get('maKhoa')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Vui lòng chọn khoa.
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit">Thêm mới</button>
+      <button type="button" (click)="onCancel()">Hủy</button>
+    </div>
+  </form>
+</div>

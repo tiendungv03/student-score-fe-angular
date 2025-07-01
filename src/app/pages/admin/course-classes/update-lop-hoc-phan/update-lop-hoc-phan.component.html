@@ -1,0 +1,142 @@
+<div class="from-dialog">
+  <h2>Cập nhật lớp học phần</h2>
+
+  <form
+    [formGroup]="updateFormData"
+    (ngSubmit)="onSubmit()"
+    class="form-container"
+  >
+    <div class="form-group">
+      <label for="maLopHocPhan">Mã lớp học phần:</label>
+      <input
+        type="text"
+        id="maLopHocPhan"
+        formControlName="maLopHocPhan"
+        readonly
+        class="readonly-gray"
+      />
+
+      <div
+        *ngIf="
+          updateFormData.get('maLopHocPhan')?.invalid &&
+          updateFormData.get('maLopHocPhan')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Vui lòng nhập mã lớp học phần.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="tietHocId">Nhập id tiết học:</label>
+      <input type="text" id="tietHocId" formControlName="tietHocId" />
+
+      <!-- <datalist id="dsHocPhan">
+        <option *ngFor="let hocPhan of hocPhans" [value]="hocPhan.maHP">
+          {{ hocPhan.tenHP }} - mã học phần: {{ hocPhan.maHP }}
+        </option>
+      </datalist> -->
+
+      <div
+        *ngIf="
+          updateFormData.get('maHP')?.invalid &&
+          updateFormData.get('maHP')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Vui lòng id tiết học.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="tenDangNhapGV">Giáo viên mới :</label>
+      <input type="text" id="tenDangNhapGV" formControlName="tenDangNhapGV" />
+      <!-- 
+      <datalist id="dsgiangVien">
+        <option
+          *ngFor="let giangVien of giangViens"
+          [value]="giangVien.tenDangNhap"
+        >
+          <p>{{ giangVien.hoTen }} - khoa: {{ giangVien.khoa?.tenKhoa }}</p>
+        </option>
+      </datalist> -->
+
+      <div
+        *ngIf="
+          updateFormData.get('tenDangNhapGVMoi')?.invalid &&
+          updateFormData.get('tenDangNhapGVMoi')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Vui lòng nhập tên đăng nhập giáo viên.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="phong">Phòng:</label>
+      <input type="text" id="phong" formControlName="phong" />
+
+      <div
+        *ngIf="
+          updateFormData.get('siSoToiDa')?.invalid &&
+          updateFormData.get('siSoToiDa')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Vui lòng nhập sĩ số hoặc tối thiếu 15.
+      </div>
+    </div>
+
+    <!-- <div class="form-group">
+      <label for="maHocKy">Mã học kỳ:</label>
+      <input
+        type="text"
+        id="maHocKy"
+        formControlName="maHocKy"
+        list="dsHocKy"
+      />
+
+      <datalist id="dsHocKy">
+        <option *ngFor="let hocKy of hocKys" [value]="hocKy.maHocKy">
+          {{ hocKy.namHoc }} - học kỳ: {{ hocKy.hocKySo }}
+        </option>
+      </datalist>
+
+      <div
+        *ngIf="
+          updateFormData.get('maHocKy')?.invalid &&
+          updateFormData.get('maHocKy')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Vui lòng nhập mã học kỳ.
+      </div>
+    </div> -->
+
+    <div class="form-group">
+      <label for="siSoToiDa">Sĩ số tối đa:</label>
+      <input type="number" id="siSoToiDa" formControlName="siSoToiDa" />
+
+      <div
+        *ngIf="
+          updateFormData.get('siSoToiDa')?.invalid &&
+          updateFormData.get('siSoToiDa')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Vui lòng nhập sĩ số hoặc tối thiếu 15.
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" (click)="onSubmit()">Cập nhật</button>
+      <button type="button" (click)="onCancel()">Hủy</button>
+    </div>
+  </form>
+</div>

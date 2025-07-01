@@ -1,0 +1,56 @@
+<div class="from-dialog">
+  <h2>Cập nhật học kì</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-container">
+    <div class="form-group">
+      <label for="maHocKy">Mã học kì:</label>
+      <input
+        type="text"
+        id="maHocKy"
+        formControlName="maHocKy"
+        readonly
+        class="readonly-gray"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="namHoc">Năm học:</label>
+      <input type="text" id="namHoc" formControlName="namHoc" />
+    </div>
+
+    <div class="form-group">
+      <label for="hocKySo">Học kì số:</label>
+      <input type="number" id="hocKySo" formControlName="hocKySo" />
+    </div>
+
+    <div class="form-group">
+      <label for="ngayBatDauHocKy">Ngày bắt đầu:</label>
+      <input
+        type="date"
+        id="ngayBatDauHocKy"
+        formControlName="ngayBatDauHocKy"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="ngayKetThucHocKy">Ngày kết thúc:</label>
+      <input
+        type="date"
+        id="ngayKetThucHocKy"
+        formControlName="ngayKetThucHocKy"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>
+        <input type="checkbox" formControlName="trangThai" />
+        <!-- {{trangThai ? "Hoạt động" : "Ngừng hoạt động" }} -->
+      </label>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" [disabled]="form.invalid">Cập nhật</button>
+      <button type="button" (click)="onCancel()">Hủy</button>
+    </div>
+  </form>
+</div>

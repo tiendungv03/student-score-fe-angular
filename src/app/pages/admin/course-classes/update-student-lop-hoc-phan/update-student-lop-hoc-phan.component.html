@@ -1,0 +1,70 @@
+<div class="from-dialog">
+  <h2>Cập nhật điểm sinh viên</h2>
+
+  <form
+    [formGroup]="updateFormData"
+    (ngSubmit)="onSubmit()"
+    class="form-container"
+  >
+    <div class="form-group">
+      <label for="tenSV">Tên đăng nhập SV:</label>
+      <input
+        type="text"
+        id="tenSV"
+        formControlName="tenSV"
+        readonly
+        class="readonly-gray"
+      />
+
+      <div
+        *ngIf="
+          updateFormData.get('tenSV')?.invalid &&
+          updateFormData.get('tenSV')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Vui lòng nhập mã lớp học phần.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="diemQT">Điểm quá trình:</label>
+      <input type="number" id="diemQT" formControlName="diemQT" />
+
+      <div
+        *ngIf="
+          updateFormData.get('diemQT')?.invalid &&
+          updateFormData.get('diemQT')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Vui lòng nhập điểm quá trình từ 0 đến 10 tối đa.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="diemThi">Điểm thi:</label>
+      <input type="number" id="diemThi" formControlName="diemThi" />
+
+      <div
+        *ngIf="
+          updateFormData.get('diemThi')?.invalid &&
+          updateFormData.get('diemThi')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Vui lòng nhập điểm thi từ 0 đến 10 tối đa.
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" [disabled]="updateFormData.invalid">
+        Cập nhật
+      </button>
+      <button type="button" (click)="onCancel()">Hủy</button>
+    </div>
+  </form>
+</div>

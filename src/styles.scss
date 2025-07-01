@@ -1,1 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.snackbar-success {
+  background-color: #4caf50;
+  color: #fff;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.snackbar-error {
+  background-color: #f44336;
+  color: #fff;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.snackbar-info {
+  background-color: #2196f3;
+  color: white;
+}
+.snackbar-warn {
+  background-color: #ff9800;
+  color: white;
+}

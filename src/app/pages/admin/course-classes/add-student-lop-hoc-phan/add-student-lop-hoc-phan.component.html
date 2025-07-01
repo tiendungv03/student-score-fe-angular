@@ -1,0 +1,84 @@
+<div class="from-dialog">
+  <h2>Thêm SV vô lớp học phần</h2>
+
+  <form
+    [formGroup]="createFormData"
+    (ngSubmit)="onSubmit()"
+    class="form-container"
+  >
+    <div class="form-group">
+      <label for="tenDangNhapSV">Tên đăng nhập SV:</label>
+      <input type="text" id="tenDangNhapSV" formControlName="tenDangNhapSV" />
+
+      <div
+        *ngIf="
+          createFormData.get('tenDangNhapSV')?.invalid &&
+          createFormData.get('tenDangNhapSV')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Vui lòng nhập tên đăng nhập SV.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="maLopHocPhan">Lớp học phần:</label>
+      <input
+        type="text"
+        id="maLopHocPhan"
+        formControlName="maLopHocPhan"
+        list="dsHocPhan"
+      />
+
+      <datalist id="dsHocPhan">
+        <option *ngFor="let hocPhan of hocPhans" [value]="hocPhan.maHP">
+          {{ hocPhan.tenHP }} - mã học phần: {{ hocPhan.maHP }}
+        </option>
+      </datalist>
+
+      <div
+        *ngIf="
+          createFormData.get('maHP')?.invalid &&
+          createFormData.get('maHP')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Vui lòng chọn học phần.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="maHocKy">Mã học kỳ:</label>
+      <input
+        type="text"
+        id="maHocKy"
+        formControlName="maHocKy"
+        list="dsHocKy"
+      />
+
+      <datalist id="dsHocKy">
+        <option *ngFor="let hocKy of hocKys" [value]="hocKy.maHocKy">
+          {{ hocKy.namHoc }} - học kỳ: {{ hocKy.hocKySo }}
+        </option>
+      </datalist>
+
+      <div
+        *ngIf="
+          createFormData.get('maHocKy')?.invalid &&
+          createFormData.get('maHocKy')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Vui lòng nhập mã học kỳ.
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" [disabled]="createFormData.invalid">Thêm</button>
+      <button type="button" (click)="onCancel()">Hủy</button>
+    </div>
+  </form>
+</div>

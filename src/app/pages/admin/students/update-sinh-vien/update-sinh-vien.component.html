@@ -1,0 +1,131 @@
+<div class="from-dialog">
+  <h2>Cập nhật sinh viên</h2>
+
+  <form
+    [formGroup]="updateFormData"
+    (ngSubmit)="onSubmit()"
+    class="form-container"
+  >
+    <div class="form-group">
+      <label for="tenDangNhap">Tên đăng nhập:</label>
+      <input
+        id="tenDangNhap"
+        type="text"
+        formControlName="tenDangNhap"
+        readonly
+        class="readonly-gray"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="hoTen">Họ tên:</label>
+      <input id="hoTen" type="text" formControlName="hoTen" />
+      <div
+        *ngIf="
+          updateFormData.get('hoTen')?.invalid &&
+          updateFormData.get('hoTen')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Vui lòng nhập họ tên.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="ngaySinh">Ngày sinh:</label>
+      <input id="ngaySinh" type="date" formControlName="ngaySinh" />
+    </div>
+
+    <div class="form-group">
+      <!-- <label>Giới tính:</label>
+      <select formControlName="gioiTinh">
+        <option [value]="true">Nam</option>
+        <option [value]="false">Nữ</option>
+      </select>
+    </div> -->
+
+      <label>Giới tính:</label>
+      <div>
+        <input
+          type="radio"
+          id="batBuocTrue"
+          formControlName="gioiTinh"
+          [value]="true"
+        />
+        <label for="gioiTinhTrue" class="radio-label">Nam</label>
+      </div>
+      <div>
+        <input
+          type="radio"
+          id="batBuocFalse"
+          formControlName="gioiTinh"
+          [value]="false"
+        />
+        <label for="gioiTinhFalse" class="radio-label">Nữ </label>
+      </div>
+
+      <div
+        *ngIf="
+          updateFormData.get('gioiTinh')?.invalid &&
+          updateFormData.get('gioiTinh')?.touched
+        "
+        class="error"
+      >
+        Vui lòng chọn giới tính.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="maKhoa">Khoa:</label>
+
+      <select id="maKhoa" formControlName="maKhoa">
+        <option value="" disabled selected>Chọn khoa</option>
+        <option *ngFor="let khoa of khoas" [value]="khoa.makhoa">
+          {{ khoa.tenKhoa }}
+        </option>
+      </select>
+
+      <div
+        *ngIf="
+          updateFormData.get('maKhoa')?.invalid &&
+          updateFormData.get('maKhoa')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Vui lòng chọn khoa.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="lop">Lớp:</label>
+      <input type="text" formControlName="lop" />
+
+      <!-- <select id="lop" formControlName="lop">
+        <option value="" disabled selected>Chọn lớp</option>
+        <option *ngFor="let lop of lops" [value]="lop.maLopHocPhan">
+          {{ lop.maLopHocPhan }}
+        </option>
+      </select> -->
+
+      <div
+        *ngIf="
+          updateFormData.get('lop')?.invalid &&
+          updateFormData.get('lop')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Vui lòng nhập lớp.
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" [disabled]="updateFormData.invalid">
+        Cập nhật
+      </button>
+      <button type="button" (click)="onCancel()">Hủy</button>
+    </div>
+  </form>
+</div>

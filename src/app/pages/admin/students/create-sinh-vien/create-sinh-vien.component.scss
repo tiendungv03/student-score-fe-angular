@@ -1,0 +1,94 @@
+.form-dialog {
+  min-width: 500px;
+  padding: 12px;
+}
+
+.form-container {
+  max-width: 900px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group select {
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  transition: border 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.form-group .error {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.form-actions button {
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.form-actions button[type="submit"] {
+  background-color: #007bff;
+  color: white;
+}
+
+.form-actions button[type="submit"]:disabled {
+  background-color: #a8c5f5;
+  cursor: not-allowed;
+}
+
+.form-actions button[type="button"] {
+  background-color: #e0e0e0;
+}
+
+@media (max-width: 600px) {
+  .form-dialog {
+    min-width: 100%;
+    padding: 8px;
+  }
+
+  .form-container {
+    padding: 16px;
+  }
+
+  .form-group input,
+  .form-group select {
+    font-size: 13px;
+  }
+
+  .form-actions button {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+}

@@ -1,0 +1,149 @@
+<link
+  href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+  rel="stylesheet"
+/>
+<nav class="sidebar" [class.close]="isSidebarClosed">
+  <div class="sidebar-header">
+    <div class="sidebar-header_logo">
+      <div class="img-logo">
+        <img src="/assets/images/logo.svg" alt="Logo" />
+      </div>
+
+      <div class="sidebar-title">
+        <h2>AcademyFlow</h2>
+        <!-- <p>Xin chào, {{ user?.name }}</p>
+        <p>Vai trò: {{ user?.role }}</p> -->
+      </div>
+    </div>
+
+    <!-- <div class="sidebar-header_toggle" (click)="toggleSidebar()">
+      <i class="bx bx-chevron-right toggle"></i>
+    </div> -->
+  </div>
+
+  <div class="sidebar-menu_item" role="navigation">
+    <ul>
+      <li>
+        <a
+          routerLink="/admin/account"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <i class="bx bx-user-pin icon"></i>
+          <span class="text-nav">Quản lý tài khoản</span>
+        </a>
+      </li>
+      <!-- <li>
+        <a
+          routerLink="/admin/roles"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <i class="bx bx-shield-quarter icon"></i>
+          <span class="text-nav">Quản lý phân quyền</span>
+        </a>
+      </li> -->
+      <li>
+        <a routerLink="/admin/departments" routerLinkActive="active">
+          <i class="bx bx-building icon"></i>
+          <span class="text-nav">Quản lý khoa</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/admin/teachers" routerLinkActive="active">
+          <i class="bx bx-chalkboard icon"></i>
+          <span class="text-nav">Quản lý giảng viên</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/admin/students" routerLinkActive="active">
+          <i class="bx bxs-graduation icon"></i>
+          <span class="text-nav">Quản lý sinh viên</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/admin/courses" routerLinkActive="active">
+          <i class="bx bx-book icon"></i>
+          <span class="text-nav">Quản lý học phần</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/admin/course-classes" routerLinkActive="active">
+          <i class="bx bx-layer icon"></i>
+          <span class="text-nav">Quản lý lớp học phần</span>
+        </a>
+      </li>
+      <!-- <li>
+        <a routerLink="/course-class-list" routerLinkActive="active">
+          <i class="bx bx-list-ul icon"></i>
+          <span class="text-nav">DS lớp học phần</span>
+        </a>
+      </li> -->
+      <!-- <li>
+        <a routerLink="/results" routerLinkActive="active">
+          <i class="bx bx-bar-chart-alt-2 icon"></i>
+          <span class="text-nav">Kết quả học tập</span>
+        </a>
+      </li> -->
+      <!-- <li>
+        <a routerLink="/register-class" routerLinkActive="active">
+          <i class="bx bx-edit-alt icon"></i>
+          <span class="text-nav">Đăng ký lớp học phần</span>
+        </a>
+      </li> -->
+      <li>
+        <a routerLink="/admin/tiet_hoc" routerLinkActive="active">
+          <i class="bx bx-calendar icon"></i>
+          <span class="text-nav">Tiết học</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/admin/hoc_ki" routerLinkActive="active">
+          <i class="bx bx-pie-chart-alt icon"></i>
+          <span class="text-nav">Học kỳ</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="sidebar-footer">
+    <div class="logout-nav">
+      <a mat-button (click)="logout()">
+        <i class="bx bx-log-out icon"></i>
+        <span class="text-nav">Đăng xuất</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<header
+  class="header"
+  [style.left]="isSidebarClosed ? '89px' : '250px'"
+  [style.width]="isSidebarClosed ? 'calc(100% - 89px)' : 'calc(100% - 250px)'"
+>
+  <div class="logo">
+    <!-- <img src="assets/logo.png" alt="Logo" /> -->
+    <div class="header-menu_openSlidebar" (click)="toggleSidebar()">
+      <i class="bx bx-menu toggle"></i>
+    </div>
+  </div>
+  <ul class="top-menu">
+    <!-- <li><a routerLink="/admin/users">Item</a></li>
+    <li><a routerLink="/admin/settings">Item</a></li>
+    <li><a routerLink="/admin/reports">Item</a></li> -->
+  </ul>
+  <div class="header-actions">
+    <div class="user-profile">
+      <!-- <img src="assets/user-avatar.png" alt="User Avatar" /> -->
+      <i class="bx bxs-user"></i>
+      <span class="username">
+        Admin: {{ userRole ? " - " + userRole : "" }}</span
+      >
+    </div>
+  </div>
+</header>
+
+<main class="content" [style.marginLeft]="isSidebarClosed ? '79px' : '240px'">
+  <!-- Nội dung trang sẽ được hiển thị ở đây -->
+  <router-outlet></router-outlet>
+</main>

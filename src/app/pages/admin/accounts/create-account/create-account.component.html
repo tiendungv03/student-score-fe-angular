@@ -1,0 +1,117 @@
+<div class="from-dialog">
+  <h2>Thêm tài khoản mới</h2>
+
+  <form
+    [formGroup]="createAccountForm"
+    (ngSubmit)="onSubmit()"
+    class="form-container"
+  >
+    <div class="form-group">
+      <label for="tenDangNhap">Tên đăng nhập:</label>
+      <input type="text" id="tenDangNhap" formControlName="tenDangNhap" />
+      <div
+        *ngIf="
+          createAccountForm.get('tenDangNhap')?.invalid &&
+          createAccountForm.get('tenDangNhap')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Tên đăng nhập là bắt buộc.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="matKhau">Mật khẩu:</label>
+      <div class="password-wrapper">
+        <input
+          [type]="hidePassword ? 'password' : 'text'"
+          id="matKhau"
+          formControlName="matKhau"
+        />
+        <button
+          type="button"
+          (click)="hidePassword = !hidePassword"
+          class="toggle-btn"
+        >
+          <i class="bx" [ngClass]="hidePassword ? 'bx-show' : 'bxs-hide'"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="matKhau">Nhập lại mật khẩu:</label>
+      <div class="password-wrapper">
+        <input
+          [type]="reHidePassword ? 'password' : 'text'"
+          id="reMatKhau"
+          formControlName="reMatKhau"
+        />
+        <button
+          type="button"
+          (click)="reHidePassword = !reHidePassword"
+          class="toggle-btn"
+        >
+          <i class="bx" [ngClass]="reHidePassword ? 'bx-show' : 'bxs-hide'"></i>
+        </button>
+      </div>
+
+      <div
+        *ngIf="
+          createAccountForm.errors?.['passwordMismatch'] &&
+          createAccountForm.get('reMatKhau')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Mật khẩu không khớp!
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="idPhanQuyen">Phân quyền:</label>
+
+      <select id="idPhanQuyen" formControlName="idPhanQuyen">
+        <option value="" selected="selected">Chọn quyền</option>
+        <option value="1">Admin</option>
+        <option value="2">Giáo viên</option>
+        <option value="3">Sinh viên</option>
+      </select>
+
+      <div
+        *ngIf="
+          createAccountForm.get('idPhanQuyen')?.invalid &&
+          createAccountForm.get('idPhanQuyen')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Vui lòng chọn phân quyền.
+      </div>
+
+      <div class="form-group">
+        <label for="ngayTao">Ngày tạo:</label>
+        <input type="date" id="ngayTao" formControlName="ngayTao" />
+      </div>
+
+      <div class="form-group">
+        <label for="ngayHetHan">Ngày hết hạn:</label>
+        <input type="date" id="ngayHetHan" formControlName="ngayHetHan" />
+      </div>
+    </div>
+
+    <!-- <div class="form-group">
+    <label>
+      <input type="checkbox" formControlName="trangThai" />
+      Kích hoạt
+    </label>
+  </div> -->
+
+    <div class="form-actions">
+      <button type="submit" [disabled]="createAccountForm.invalid">
+        Thêm mới
+      </button>
+      <button type="button" (click)="onCancel()">Hủy</button>
+    </div>
+  </form>
+</div>

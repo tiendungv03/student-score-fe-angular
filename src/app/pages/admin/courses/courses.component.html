@@ -1,1 +1,84 @@
-<p>courses works!</p>
+<div class="content-table">
+  <h2 class="text-xl mb-4">Quản lý Học phần</h2>
+
+  <div class="content-title">
+    <div class="content-title_search">
+      <input
+        type="text"
+        [(ngModel)]="searchText"
+        (input)="filterData()"
+        placeholder="Tìm kiếm học phần..."
+        class="border p-2 rounded w-1/3"
+      />
+      <!-- <button class="bg-blue-500 text-white btn-search">+ Tìm</button> -->
+    </div>
+    <div class="content-title_createAccount">
+      <button class="create-user bg-blue-500" (click)="createHocPhan()">
+        Thêm học phần
+      </button>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Mã học phần</th>
+          <th>Tên học phần</th>
+          <th>Số tín chỉ</th>
+          <th>Yêu cầu</th>
+          <th>Khoa</th>
+          <th>Trạng thái</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let hocPhans of pagedData">
+          <!-- <ng-container *ngFor="let tk of quyen.taiKhoans"> -->
+          <tr>
+            <td>{{ hocPhans.maHP }}</td>
+            <td>{{ hocPhans.tenHP }}</td>
+            <td>{{ hocPhans.soTinChi }}</td>
+            <td>{{ hocPhans.batBuoc ? "Bắt buộc" : "Không bắt buộc" }}</td>
+            <td>{{ hocPhans.khoa?.tenKhoa }}</td>
+            <td>{{ hocPhans.trangThai ? "Hoạt động" : "Bị xóa" }}</td>
+            <td class="action-buttons">
+              <!-- Xem -->
+              <!-- <button title="Xem chi tiết" class="icon-button view">Xem</button> -->
+              <!-- Sửa -->
+              <button
+                title="Chỉnh sửa"
+                class="icon-button edit"
+                (click)="updateHocPhan(hocPhans)"
+              >
+                Sửa
+              </button>
+              <!-- Xóa -->
+              <button
+                title="Xóa"
+                class="icon-button delete"
+                (click)="confirmDelete(hocPhans)"
+              >
+                Xóa
+              </button>
+            </td>
+          </tr>
+        </ng-container>
+        <!-- </ng-container> -->
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pagination">
+    <button (click)="onPageChange(pageIndex - 1)" [disabled]="pageIndex <= 1">
+      <i class="bx bx-left-arrow-alt"></i>
+    </button>
+    <span>Trang {{ pageIndex }}</span>
+    <button
+      (click)="onPageChange(pageIndex + 1)"
+      [disabled]="pageIndex * pageSize >= totalCount"
+    >
+      <i class="bx bx-right-arrow-alt"></i>
+    </button>
+  </div>
+</div>

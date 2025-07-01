@@ -1,0 +1,123 @@
+<div class="from-dialog">
+  <h2>Thêm học phần mới</h2>
+
+  <form
+    [formGroup]="createFormData"
+    (ngSubmit)="onSubmit()"
+    class="form-container"
+  >
+    <div class="form-group">
+      <label for="maHP">Mã học phần:</label>
+      <input type="text" id="maHP" formControlName="maHP" />
+
+      <div
+        *ngIf="
+          createFormData.get('maHP')?.invalid &&
+          createFormData.get('maHP')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Vui lòng nhập mã học phần.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="tenHP">Tên học phần:</label>
+      <input type="text" id="tenHP" formControlName="tenHP" />
+
+      <div
+        *ngIf="
+          createFormData.get('tenHP')?.invalid &&
+          createFormData.get('tenHP')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Vui lòng nhập tên học phần.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="soTinChi">Số tín chỉ:</label>
+      <input type="number" id="soTinChi" formControlName="soTinChi" min="1" />
+
+      <div
+        *ngIf="
+          createFormData.get('soTinChi')?.invalid &&
+          createFormData.get('soTinChi')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Vui lòng nhập số tín chỉ.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Yêu cầu:</label>
+      <div>
+        <input
+          type="radio"
+          id="batBuocTrue"
+          formControlName="batBuoc"
+          [value]="true"
+        />
+        <label for="batBuocTrue" class="radio-label">Bắt buộc</label>
+      </div>
+      <div>
+        <input
+          type="radio"
+          id="batBuocFalse"
+          formControlName="batBuoc"
+          [value]="false"
+        />
+        <label for="batBuocFalse" class="radio-label">Không bắt buộc</label>
+      </div>
+
+      <!-- <select>
+        <option value="true">Bắt buộc</option>
+        <option value="false">Không bắt buộc</option>
+      </select> -->
+
+      <div
+        *ngIf="
+          createFormData.get('batBuoc')?.invalid &&
+          createFormData.get('batBuoc')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Vui lòng chọn yêu cầu học phần.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="maKhoa">Khoa:</label>
+      <select id="maKhoa" formControlName="maKhoa">
+        <option value="" disabled selected>Chọn khoa</option>
+        <option *ngFor="let khoa of khoas" [value]="khoa.makhoa">
+          {{ khoa.tenKhoa }}
+        </option>
+      </select>
+
+      <div
+        *ngIf="
+          createFormData.get('maKhoa')?.invalid &&
+          createFormData.get('maKhoa')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Vui lòng chọn khoa.
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" [disabled]="createFormData.invalid">
+        Thêm mới
+      </button>
+      <button type="button" (click)="onCancel()">Hủy</button>
+    </div>
+  </form>
+</div>

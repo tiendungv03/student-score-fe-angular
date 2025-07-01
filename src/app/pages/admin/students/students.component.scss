@@ -1,0 +1,160 @@
+.content-table {
+  position: relative;
+  padding: 1rem;
+  background-color: #ffffff;
+  z-index: 1;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  margin-left: 1.5rem;
+}
+
+.content-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.content-title_search {
+  display: flex;
+  justify-content: flex-start; /* Sửa từ space-around */
+}
+
+.content-title_search input {
+  width: 100%;
+}
+
+input[type="text"] {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 33.33%;
+  font-size: 14px;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+button.bg-blue-500 {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.table-container {
+  border-radius: 18px;
+  overflow-x: auto;
+  position: relative;
+  max-height: 700px;
+  border: 1px solid #ccc;
+  margin-top: 1rem;
+  z-index: 0;
+}
+
+.table-container table {
+  width: 100%;
+  min-width: 800px;
+  border-collapse: collapse;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.table-container thead th {
+  position: sticky;
+  top: 0; /* Thêm để sticky hoạt động */
+  background-color: #fcfbfc;
+  z-index: 1;
+}
+
+th,
+td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+th {
+  font-weight: 600;
+  color: #374151;
+}
+
+tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.icon-button {
+  background: transparent;
+  border: 1px solid transparent;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.icon-button.view {
+  color: #2563eb;
+  border-color: #bfdbfe;
+}
+.icon-button.view:hover {
+  background-color: #e0f2fe;
+}
+
+.icon-button.edit {
+  color: #059669;
+  border-color: #bbf7d0;
+}
+.icon-button.edit:hover {
+  background-color: #d1fae5;
+}
+
+.icon-button.delete {
+  color: #dc2626;
+  border-color: #fecaca;
+}
+.icon-button.delete:hover {
+  background-color: #fee2e2;
+}
+
+.loading {
+  text-align: center;
+  padding: 20px;
+  color: #6b7280;
+}
+
+@media (max-width: 768px) {
+  input[type="text"] {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  .table-container {
+    max-height: 300px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table-container table {
+    font-size: 14px;
+    min-width: 600px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

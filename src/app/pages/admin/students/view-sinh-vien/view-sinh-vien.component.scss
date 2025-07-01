@@ -1,0 +1,73 @@
+.content-view {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h2,
+h3,
+h4,
+h5 {
+  color: #2c3e50;
+  margin-bottom: 16px;
+}
+
+.btn-back {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.btn-back:hover {
+  background-color: #2980b9;
+}
+
+p {
+  font-size: 16px;
+  margin: 8px 0;
+  color: #34495e;
+}
+
+.bang-diem {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 24px;
+}
+
+.bang-diem th,
+.bang-diem td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+.bang-diem th {
+  background-color: #f0f0f0;
+  color: #2c3e50;
+}
+
+.rot {
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+.dat {
+  color: #27ae60;
+  font-weight: bold;
+}
+
+.tong-ket td {
+  background-color: #f0f8ff;
+  font-weight: bold;
+  color: #2c3e50;
+}

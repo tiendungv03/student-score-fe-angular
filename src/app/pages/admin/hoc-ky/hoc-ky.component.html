@@ -1,0 +1,78 @@
+<div class="content-table">
+  <h2 class="text-xl mb-4">Quản lý học kì</h2>
+
+  <div class="content-title">
+    <div class="content-title_search">
+      <input
+        type="text"
+        [(ngModel)]="searchText"
+        (input)="filterData()"
+        placeholder="Tìm kiếm theo năm học..."
+        class="border p-2 rounded w-1/3"
+      />
+    </div>
+    <div>
+      <button class="create-user bg-blue-500" (click)="createHocKy()">
+        Thêm học kì
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loading">Đang tải dữ liệu...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+  <div *ngIf="!loading && !error" class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Mã HK</th>
+          <th>Năm học</th>
+          <th>Học kì số</th>
+          <th>Thời gian</th>
+          <th>Trạng thái</th>
+          <th>Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let hk of pagedData">
+          <td>{{ hk.maHocKy }}</td>
+          <td>{{ hk.namHoc }}</td>
+          <td>{{ hk.hocKySo }}</td>
+          <td>{{ hk.ngayBatDauHocKy }} – {{ hk.ngayKetThucHocKy }}</td>
+          <td>{{ hk.trangThai ? "Hoạt động" : "Ngừng" }}</td>
+          <td>
+            <button
+              title="Chỉnh sửa"
+              class="icon-button edit"
+              (click)="updateHocKy(hk)"
+            >
+              Sửa
+            </button>
+            <button
+              title="Xóa"
+              class="icon-button delete"
+              (click)="confirmDelete(hk)"
+            >
+              Xóa
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="loading">Đang tải...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+  <div *ngIf="!loading && !error"></div>
+
+  <div class="pagination">
+    <button (click)="onPageChange(pageIndex - 1)" [disabled]="pageIndex <= 1">
+      <i class="bx bx-left-arrow-alt"></i>
+    </button>
+    <span>Trang {{ pageIndex }}</span>
+    <button
+      (click)="onPageChange(pageIndex + 1)"
+      [disabled]="pageIndex * pageSize >= totalCount"
+    >
+      <i class="bx bx-right-arrow-alt"></i>
+    </button>
+  </div>
+</div>

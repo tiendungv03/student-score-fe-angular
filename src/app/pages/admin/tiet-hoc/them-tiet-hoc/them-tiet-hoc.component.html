@@ -1,0 +1,70 @@
+<div class="from-dialog">
+  <h2>Thêm tiết học</h2>
+
+  <form
+    [formGroup]="createFormData"
+    (ngSubmit)="onSubmit()"
+    class="form-container"
+  >
+    <div class="form-group">
+      <label for="id">Id:</label>
+      <input type="text" id="id" formControlName="id" />
+      <!-- <div
+        *ngIf="
+          form.get('id')?.invalid &&
+          form.get('id')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Nhập thứ hợp lệ.
+      </div> -->
+    </div>
+
+    <div class="form-group">
+      <label for="thu">Thứ:</label>
+      <input type="number" id="thu" formControlName="thu" min="2" max="8" />
+      <div
+        *ngIf="
+          createFormData.get('thu')?.invalid &&
+          createFormData.get('thu')?.touched
+        "
+        class="error"
+        style="color: red"
+      >
+        Nhập thứ hợp lệ (2-8).
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="tietDau">Tiết đầu:</label>
+      <input type="number" id="tietDau" formControlName="tietDau" />
+    </div>
+
+    <div class="form-group">
+      <label for="tietCuoi">Tiết cuối:</label>
+      <input type="number" id="tietCuoi" formControlName="tietCuoi" />
+    </div>
+
+    <div class="form-group">
+      <label for="thoiGianBatDau">Giờ bắt đầu:</label>
+      <input type="time" id="thoiGianBatDau" formControlName="thoiGianBatDau" />
+    </div>
+
+    <div class="form-group">
+      <label for="thoiGianKetThuc">Giờ kết thúc:</label>
+      <input
+        type="time"
+        id="thoiGianKetThuc"
+        formControlName="thoiGianKetThuc"
+      />
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" [disabled]="createFormData.invalid">
+        Thêm mới
+      </button>
+      <button type="button" (click)="onCancel()">Hủy</button>
+    </div>
+  </form>
+</div>
