@@ -19,7 +19,7 @@ import { GiangVien } from '../../../model/giang-vien.model';
 })
 export class TeachersComponent {
   dataApi: GiangVien[] = [];
-  filteredData: GiangVien[] = [];
+  // filteredData: GiangVien[] = [];
   searchText = '';
 
   fullData: GiangVien[] = [];
@@ -42,26 +42,42 @@ export class TeachersComponent {
   loadDataApi() {
     this.httpClient.getTeachers().subscribe({
       next: (data) => {
-        // console.log('data api: ' + data);
-        // const tamp: any = data;
-        // console.log('data api:', JSON.stringify(data, null, 2));
-
-        // this.dataApi = data;
-        // this.filteredData = [...this.dataApi];
-
-        this.fullData = data.items;
-        this.totalCount = data.totalCount;
+        this.dataApi = data.items;
+        this.fullData = [...this.dataApi];
+        this.totalCount = this.fullData.length;
+        this.pageIndex = 1;
         this.sliceData();
-
-        // console.log('dtf: ' + this.filteredData);
-        // console.log('Sinh vien: ' + JSON.stringify(this.filteredData, null, 2));
       },
       error: (error) => {
-        console.error('Error loading accounts:', error);
-        this.showNotification('Failed to load teacher', 'error');
+        console.error('Lỗi khi tải giáo viên:', error);
+        this.showNotification('Không thể tải danh sách giáo viên', 'error');
       },
     });
   }
+
+  // loadDataApi() {
+  //   this.httpClient.getTeachers().subscribe({
+  //     next: (data) => {
+  //       // console.log('data api: ' + data);
+  //       // const tamp: any = data;
+  //       // console.log('data api:', JSON.stringify(data, null, 2));
+
+  //       // this.dataApi = data;
+  //       // this.filteredData = [...this.dataApi];
+
+  //       this.fullData = data.items;
+  //       this.totalCount = data.totalCount;
+  //       this.sliceData();
+
+  //       // console.log('dtf: ' + this.filteredData);
+  //       // console.log('Sinh vien: ' + JSON.stringify(this.filteredData, null, 2));
+  //     },
+  //     error: (error) => {
+  //       console.error('Error loading accounts:', error);
+  //       this.showNotification('Failed to load teacher', 'error');
+  //     },
+  //   });
+  // }
 
   sliceData() {
     const start = (this.pageIndex - 1) * this.pageSize;
@@ -89,14 +105,29 @@ export class TeachersComponent {
   }
 
   filterData() {
-    const text = this.searchText.toLowerCase();
-    this.filteredData = this.dataApi.filter(
-      (item: GiangVien) =>
-        item.taiKhoan?.tenDangNhap?.toLowerCase().includes(text) ||
-        item.hoTen?.toLowerCase().includes(text) ||
-        item.bomon.toLowerCase().includes(text) ||
-        item.khoa?.tenKhoa.toLowerCase().includes(text)
-    );
+    const text = this.searchText.trim().toLowerCase();
+
+    if (!text) {
+      this.fullData = [...this.dataApi];
+    } else {
+      this.fullData = this.dataApi.filter((item: GiangVien) => {
+        const username = item.taiKhoan?.tenDangNhap?.toLowerCase() || '';
+        const fullName = item.hoTen?.toLowerCase() || '';
+        const boMon = item.bomon?.toLowerCase() || '';
+        const tenKhoa = item.khoa?.tenKhoa?.toLowerCase() || '';
+
+        return (
+          username.includes(text) ||
+          fullName.includes(text) ||
+          boMon.includes(text) ||
+          tenKhoa.includes(text)
+        );
+      });
+    }
+
+    this.totalCount = this.fullData.length;
+    this.pageIndex = 1;
+    this.sliceData();
   }
 
   createGiaoVien() {

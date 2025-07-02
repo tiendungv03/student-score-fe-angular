@@ -46,15 +46,11 @@ export class CourseClassesComponent {
   loadDataApi() {
     this.httpClient.getLopHocPhans().subscribe({
       next: (res) => {
-        // console.log('data api: ' + data);
-        // const tamp: any = data;
-        // console.log('data api:', JSON.stringify(data, null, 2));
-        this.fullData = res.items; // Lưu toàn bộ danh sách
-        this.totalCount = res.totalCount;
+        this.dataApi = res.items;
+        this.fullData = [...this.dataApi];
+        this.totalCount = this.fullData.length;
+        this.pageIndex = 1;
         this.sliceData();
-        // this.totalItems = data.totalCount; // dùng để phân trang
-        // console.log('dtf: ' + this.filteredData);
-        // console.log('Sinh vien: ' + JSON.stringify(this.filteredData, null, 2));
       },
       error: (error) => {
         console.error('Error loading:', error);
@@ -62,6 +58,26 @@ export class CourseClassesComponent {
       },
     });
   }
+
+  // loadDataApi() {
+  //   this.httpClient.getLopHocPhans().subscribe({
+  //     next: (res) => {
+  //       // console.log('data api: ' + data);
+  //       // const tamp: any = data;
+  //       // console.log('data api:', JSON.stringify(data, null, 2));
+  //       this.fullData = res.items; // Lưu toàn bộ danh sách
+  //       this.totalCount = res.totalCount;
+  //       this.sliceData();
+  //       // this.totalItems = data.totalCount; // dùng để phân trang
+  //       // console.log('dtf: ' + this.filteredData);
+  //       // console.log('Sinh vien: ' + JSON.stringify(this.filteredData, null, 2));
+  //     },
+  //     error: (error) => {
+  //       console.error('Error loading:', error);
+  //       this.showNotification('Lỗi hiện thị học phần!', 'error');
+  //     },
+  //   });
+  // }
 
   sliceData() {
     const start = (this.pageIndex - 1) * this.pageSize;
@@ -89,13 +105,38 @@ export class CourseClassesComponent {
   }
 
   filterData() {
-    const text = this.searchText.toLowerCase();
-    this.filteredData = this.dataApi.filter(
-      (item: LopHocPhan) =>
-        item.hocPhan?.tenHP.toLowerCase().includes(text) ||
-        item.maHP?.toLowerCase().includes(text) ||
-        item.maLopHocPhan.toLowerCase().includes(text)
-    );
+    const text = this.searchText.toLowerCase().trim();
+
+    if (!text) {
+      this.fullData = [...this.dataApi];
+    } else {
+      this.fullData = this.dataApi.filter((item: LopHocPhan) => {
+        const tenHP = item.hocPhan?.tenHP?.toLowerCase() || '';
+        const maHP = item.maHP?.toLowerCase() || '';
+        const maLop = item.maLopHocPhan?.toLowerCase() || '';
+        const trangThai = (
+          item.trangThai ? 'hoạt động' : 'bị xóa'
+        ).toLowerCase();
+        const hocKySo = item.hocKy?.hocKySo?.toString() || '';
+        const namHoc = item.hocKy?.namHoc?.toLowerCase() || '';
+
+        const thongTinNamHoc = `năm học: ${namHoc}`;
+        const thongTinHocKy = `học kỳ: ${hocKySo}`;
+
+        return (
+          tenHP.includes(text) ||
+          maHP.includes(text) ||
+          maLop.includes(text) ||
+          trangThai.includes(text) ||
+          thongTinNamHoc.includes(text) ||
+          thongTinHocKy.includes(text)
+        );
+      });
+    }
+
+    this.totalCount = this.fullData.length;
+    this.pageIndex = 1;
+    this.sliceData();
   }
 
   createLopHocPhan() {

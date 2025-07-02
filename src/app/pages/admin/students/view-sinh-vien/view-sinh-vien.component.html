@@ -14,63 +14,37 @@
   <p><strong>Lớp:</strong> {{ sinhVien?.lop }}</p>
   <p><strong>Khoa:</strong> {{ sinhVien?.khoa?.tenKhoa }}</p>
 
-  <h3>Bảng điểm theo năm và kỳ</h3>
-
-  <div *ngFor="let nam of bangDiemTheoNam">
-    <h4>Năm học {{ nam.namHoc }}</h4>
-
-    <div *ngFor="let ki of nam.kyHoc">
-      <h5>Kỳ {{ ki.kiHoc }}</h5>
-
-      <table class="bang-diem">
-        <thead>
-          <tr>
-            <th>Môn học</th>
-            <th>Số TC</th>
-            <th>Điểm QT</th>
-            <th>Điểm Thi</th>
-            <th>Điểm TK</th>
-            <th>GPA (hệ 4)</th>
-            <th>Kết quả</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let mon of ki.monHoc">
-            <td>{{ mon.tenHP }}</td>
-
-            <td>{{ mon.soTinChi }}</td>
-
-            <td>{{ mon.diemQT }}</td>
-            <td>{{ mon.diemThi }}</td>
-            <td>{{ mon.diemTongKet }}</td>
-            <td>{{ mon.GPA | number : "1.2-4" }}</td>
-            <td
-              [ngClass]="{
-                rot: mon.KetQua === 'Rớt',
-                dat: mon.KetQua === 'Đạt'
-              }"
-            >
-              {{ mon.KetQua }}
-            </td>
-          </tr>
-
-          <tr class="tong-ket">
-            <td colspan="4"><strong>Tổng kết kỳ:</strong></td>
-
-            <td>
-              <strong>{{ ki.tongDiemHe10 }}</strong>
-            </td>
-
-            <td>
-              <strong>{{ ki.GPAHe4 | number : "1.2-4" }}</strong>
-            </td>
-
-            <td>
-              <strong>{{ ki.xepLoai }}</strong>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+  <h3>Bảng điểm</h3>
+  <table class="bang-diem" *ngIf="sinhVien?.ketQuaHocTaps?.length">
+    <thead>
+      <tr>
+        <th>Mã lớp HP</th>
+        <th>Mã học kỳ</th>
+        <th>Điểm QT</th>
+        <th>Điểm Thi</th>
+        <th>Điểm TK</th>
+        <th>GPA (hệ 4)</th>
+        <th>Xếp loại</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let kq of sinhVien?.ketQuaHocTaps">
+        <td>{{ kq.maLopHocPhan }}</td>
+        <td>{{ kq.maHocKy }}</td>
+        <td>{{ kq.diemQT }}</td>
+        <td>{{ kq.diemThi }}</td>
+        <td>{{ kq.diemTongKet }}</td>
+        <td>{{ kq.diemHe4 | number : "1.2-2" }}</td>
+        <td
+          [ngClass]="{
+            rot: kq.xepLoai.toLowerCase() === 'rớt',
+            dat: kq.xepLoai.toLowerCase() === 'đạt'
+          }"
+        >
+          {{ kq.xepLoai }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p *ngIf="!sinhVien?.ketQuaHocTaps?.length">Không có bảng điểm.</p>
 </div>

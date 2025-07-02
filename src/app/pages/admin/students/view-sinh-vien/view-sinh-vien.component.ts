@@ -46,13 +46,8 @@ interface BangDiemNamHoc {
 })
 export class ViewSinhVienComponent implements OnInit {
   sinhVien?: SinhVien;
-  bangDiemTheoNam: BangDiemNamHoc[] = [];
   loading = true;
   error?: string;
-
-  private hocPhanMap: Map<string, HocPhan> = new Map();
-  private lopHocPhanMap: Map<string, { hocKySo: number; namHoc: number }> =
-    new Map();
 
   constructor(
     private route: ActivatedRoute,
@@ -67,15 +62,13 @@ export class ViewSinhVienComponent implements OnInit {
       return;
     }
 
-    forkJoin({
-      sinhVien: this.httpClient.getSinhVienById(id),
-      hocPhans: this.httpClient.getHocPhans(),
-      hocKies: this.httpClient.getHocKies(),
-    }).subscribe({
-      next: ({ sinhVien, hocPhans, hocKies }) => {},
-      error: (error) => {
-        console.error('Lỗi khi tải dữ liệu:', error);
-        this.error = 'Không thể tải thông tin sinh viên';
+    this.httpClient.getSinhVienById(id).subscribe({
+      next: (data) => {
+        this.sinhVien = data;
+        this.loading = false;
+      },
+      error: (err) => {
+        this.error = 'Không thể tải dữ liệu sinh viên.';
         this.loading = false;
       },
     });

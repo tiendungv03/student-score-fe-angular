@@ -183,16 +183,15 @@ export class StudentsComponent implements OnInit {
     this.loading = true;
     this.httpClient.getStudents().subscribe({
       next: (data) => {
-        // this.dataApi = data;
-        // this.filteredData = [...this.dataApi];
-
-        this.fullData = data.items;
-        this.totalCount = data.totalCount;
+        this.dataApi = data.items; // ← cần thêm dòng này
+        this.fullData = [...this.dataApi]; // ← hiển thị mặc định
+        this.totalCount = this.fullData.length;
+        this.pageIndex = 1;
         this.sliceData();
         this.loading = false;
       },
       error: (error) => {
-        console.error('Error loading students:', error);
+        console.error('Lỗi khi tải sinh viên:', error);
         this.snackBar.open('Tải danh sách sinh viên thất bại', 'Đóng', {
           duration: 3000,
           panelClass: ['error-snackbar'],
@@ -201,6 +200,29 @@ export class StudentsComponent implements OnInit {
       },
     });
   }
+
+  // loadDataApi() {
+  //   this.loading = true;
+  //   this.httpClient.getStudents().subscribe({
+  //     next: (data) => {
+  //       // this.dataApi = data;
+  //       // this.filteredData = [...this.dataApi];
+
+  //       this.fullData = data.items;
+  //       this.totalCount = data.totalCount;
+  //       this.sliceData();
+  //       this.loading = false;
+  //     },
+  //     error: (error) => {
+  //       console.error('Error loading students:', error);
+  //       this.snackBar.open('Tải danh sách sinh viên thất bại', 'Đóng', {
+  //         duration: 3000,
+  //         panelClass: ['error-snackbar'],
+  //       });
+  //       this.loading = false;
+  //     },
+  //   });
+  // }
 
   sliceData() {
     const start = (this.pageIndex - 1) * this.pageSize;
@@ -229,13 +251,33 @@ export class StudentsComponent implements OnInit {
 
   filterData() {
     const text = this.searchText.toLowerCase().trim();
-    this.filteredData = this.dataApi.filter(
-      (item) =>
-        item.tenDangNhap.toLowerCase().includes(text) ||
-        item.hoTen.toLowerCase().includes(text) ||
-        item.lop.toLowerCase().includes(text) ||
-        item.khoa?.tenKhoa.toLowerCase().includes(text)
-    );
+
+    if (!text) {
+      this.fullData = [...this.dataApi]; // hiển thị lại toàn bộ nếu không tìm
+    } else {
+      this.fullData = this.dataApi.filter((item) => {
+        const username = item.tenDangNhap?.toLowerCase() || '';
+        const name = item.hoTen?.toLowerCase() || '';
+        const lop = item.lop?.toLowerCase() || '';
+        const khoa =
+          item.khoa?.tenKhoa?.toLowerCase() || item.maKhoa?.toLowerCase() || '';
+        const trangThai = (
+          item.trangThai ? 'hoạt động' : 'bị xóa'
+        ).toLowerCase();
+
+        return (
+          username.includes(text) ||
+          name.includes(text) ||
+          lop.includes(text) ||
+          khoa.includes(text) ||
+          trangThai.includes(text)
+        );
+      });
+    }
+
+    this.totalCount = this.fullData.length;
+    this.pageIndex = 1;
+    this.sliceData();
   }
 
   createSinhVien() {

@@ -90,12 +90,34 @@ export class TietHocComponent {
   }
 
   filterData() {
-    const text = this.searchText.toLowerCase();
-    // this.filteredData = this.dataApi.filter(
-    //   (item: Khoa) =>
-    //     item.tenKhoa?.toLowerCase().includes(text) ||
-    //     item.makhoa?.toLowerCase().includes(text)
-    // );
+    const text = this.searchText.toLowerCase().trim();
+
+    if (!text) {
+      // Nếu không nhập gì thì hiển thị toàn bộ
+      this.sliceData();
+      return;
+    }
+
+    const filtered = this.fullData.filter((item) => {
+      const id = item.id?.toString().toLowerCase() || '';
+      const thu = item.thu?.toString().toLowerCase() || '';
+      // const tietDau = item.tietDau?.toString().toLowerCase() || '';
+      // const tietCuoi = item.tietCuoi?.toString().toLowerCase() || '';
+      // const thoiGianBatDau = item.thoiGianBatDau?.toLowerCase() || '';
+      // const thoiGianKetThuc = item.thoiGianKetThuc?.toLowerCase() || '';
+      // const thoiGian = `${thoiGianBatDau} - ${thoiGianKetThuc}`;
+
+      return (
+        id.includes(text) || thu.includes(text)
+        // tietDau.includes(text) ||
+        // tietCuoi.includes(text) ||
+        // thoiGian.includes(text)
+      );
+    });
+
+    this.totalCount = filtered.length;
+    this.pageIndex = 1;
+    this.pagedData = filtered.slice(0, this.pageSize);
   }
 
   createTietHoc() {

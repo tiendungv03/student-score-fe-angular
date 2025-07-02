@@ -55,15 +55,30 @@ export class AccountsComponent {
   loadAccounts() {
     this.httpClient.getAccounts().subscribe({
       next: (res) => {
-        this.fullData = res.items; // Lưu toàn bộ danh sách
-        this.totalCount = res.totalCount;
-        this.sliceData(); // Lấy trang đầu tiên
+        this.dataApi = res.items;
+        this.fullData = [...this.dataApi]; // Hiển thị dữ liệu ban đầu
+        this.totalCount = this.fullData.length;
+        this.pageIndex = 1;
+        this.sliceData();
       },
       error: (err) => {
         this.showNotification('Không thể tải danh sách tài khoản', 'error');
       },
     });
   }
+
+  // loadAccounts() {
+  //   this.httpClient.getAccounts().subscribe({
+  //     next: (res) => {
+  //       this.fullData = res.items; // Lưu toàn bộ danh sách
+  //       this.totalCount = res.totalCount;
+  //       this.sliceData(); // Lấy trang đầu tiên
+  //     },
+  //     error: (err) => {
+  //       this.showNotification('Không thể tải danh sách tài khoản', 'error');
+  //     },
+  //   });
+  // }
 
   // loadAccounts() {
   //   this.httpClient.getAccounts().subscribe({
@@ -82,19 +97,30 @@ export class AccountsComponent {
 
   filterAccounts() {
     const search = this.searchText.trim().toLowerCase();
-    this.filteredData = this.dataApi.filter((account) => {
-      const username = account.tenDangNhap?.toLowerCase() || '';
-      const fullName =
-        account.sinhVien?.hoTen?.toLowerCase() ||
-        account.giangVien?.hoTen?.toLowerCase() ||
-        'admin hệ thống';
-      const role = account.phanQuyen?.tenQuyen?.toLowerCase() || '';
-      return (
-        username.includes(search) ||
-        fullName.includes(search) ||
-        role.includes(search)
-      );
-    });
+
+    if (!search) {
+      this.fullData = [...this.dataApi]; // khôi phục nếu không nhập gì
+    } else {
+      this.fullData = this.dataApi.filter((account) => {
+        const username = account.tenDangNhap?.toLowerCase() || '';
+        const fullName =
+          account.sinhVien?.hoTen?.toLowerCase() ||
+          account.giangVien?.hoTen?.toLowerCase() ||
+          'admin hệ thống';
+        const role = account.phanQuyen?.tenQuyen?.toLowerCase() || '';
+        const status = account.trangThai ? 'hoạt động' : 'bị khóa';
+        return (
+          username.includes(search) ||
+          fullName.includes(search) ||
+          role.includes(search) ||
+          status.includes(search)
+        );
+      });
+    }
+
+    this.totalCount = this.fullData.length;
+    this.pageIndex = 1;
+    this.sliceData();
   }
 
   sliceData() {

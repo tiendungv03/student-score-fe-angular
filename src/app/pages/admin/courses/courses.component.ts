@@ -20,7 +20,7 @@ import { UpdateHocPhanComponent } from './update-hoc-phan/update-hoc-phan.compon
 })
 export class CoursesComponent {
   dataApi: HocPhan[] = [];
-  filteredData: HocPhan[] = [];
+  // filteredData: HocPhan[] = [];
   searchText = '';
 
   fullData: HocPhan[] = [];
@@ -43,24 +43,40 @@ export class CoursesComponent {
   loadDataApi() {
     this.httpClient.getHocPhans().subscribe({
       next: (data) => {
-        this.fullData = data.items;
-        this.totalCount = data.totalCount;
+        this.dataApi = data.items; // ← Gán thêm dòng này
+        this.fullData = [...this.dataApi];
+        this.totalCount = this.fullData.length;
+        this.pageIndex = 1;
         this.sliceData();
-        // console.log('data api: ' + data);
-        // const tamp: any = data;
-        // console.log('data api:', JSON.stringify(data, null, 2));
-        // this.dataApi = data;
-
-        // this.filteredData = [...this.dataApi];
-        // console.log('dtf: ' + this.filteredData);
-        // console.log('Sinh vien: ' + JSON.stringify(this.filteredData, null, 2));
       },
       error: (error) => {
-        console.error('Error loading accounts:', error);
+        console.error('Error loading:', error);
         this.showNotification('Lỗi hiện thị học phần!', 'error');
       },
     });
   }
+
+  // loadDataApi() {
+  //   this.httpClient.getHocPhans().subscribe({
+  //     next: (data) => {
+  //       this.fullData = data.items;
+  //       this.totalCount = data.totalCount;
+  //       this.sliceData();
+  //       // console.log('data api: ' + data);
+  //       // const tamp: any = data;
+  //       // console.log('data api:', JSON.stringify(data, null, 2));
+  //       // this.dataApi = data;
+
+  //       // this.filteredData = [...this.dataApi];
+  //       // console.log('dtf: ' + this.filteredData);
+  //       // console.log('Sinh vien: ' + JSON.stringify(this.filteredData, null, 2));
+  //     },
+  //     error: (error) => {
+  //       console.error('Error loading accounts:', error);
+  //       this.showNotification('Lỗi hiện thị học phần!', 'error');
+  //     },
+  //   });
+  // }
 
   sliceData() {
     const start = (this.pageIndex - 1) * this.pageSize;
@@ -88,12 +104,33 @@ export class CoursesComponent {
   }
 
   filterData() {
-    const text = this.searchText.toLowerCase();
-    this.filteredData = this.dataApi.filter(
-      (item: HocPhan) =>
-        item.tenHP?.toLowerCase().includes(text) ||
-        item.maHP?.toLowerCase().includes(text)
-    );
+    const text = this.searchText.toLowerCase().trim();
+
+    if (!text) {
+      this.fullData = [...this.dataApi];
+    } else {
+      this.fullData = this.dataApi.filter((item: HocPhan) => {
+        const tenHP = item.tenHP?.toLowerCase() || '';
+        const maHP = item.maHP?.toLowerCase() || '';
+        const soTinChi = item.soTinChi?.toString() || '';
+        const batBuoc = item.batBuoc ? 'bắt buộc' : 'không bắt buộc';
+        const khoa = item.khoa?.tenKhoa?.toLowerCase() || '';
+        const trangThai = item.trangThai ? 'hoạt động' : 'bị xóa';
+
+        return (
+          tenHP.includes(text) ||
+          maHP.includes(text) ||
+          soTinChi.includes(text) ||
+          batBuoc.includes(text) ||
+          khoa.includes(text) ||
+          trangThai.includes(text)
+        );
+      });
+    }
+
+    this.totalCount = this.fullData.length;
+    this.pageIndex = 1;
+    this.sliceData();
   }
 
   createHocPhan() {

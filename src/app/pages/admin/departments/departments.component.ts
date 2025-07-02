@@ -18,7 +18,7 @@ import { Khoa } from '../../../model/khoa.model';
 })
 export class DepartmentsComponent {
   dataApi: Khoa[] = [];
-  filteredData: Khoa[] = [];
+  // filteredData: Khoa[] = [];
   loading = true;
   error?: string;
   searchText = '';
@@ -43,17 +43,10 @@ export class DepartmentsComponent {
   loadDataApi() {
     this.httpClient.getDepartments().subscribe({
       next: (data) => {
-        // console.log('data api: ' + data);
-        // const tamp: any = data;
-        // console.log('data api:', JSON.stringify(data, null, 2));
-        // this.dataApi = data;
-
-        // this.filteredData = [...this.dataApi];
-        // console.log('dtf: ' + this.filteredData);
-        // console.log('khoa: ' + JSON.stringify(this.filteredData, null, 2));
-
-        this.fullData = data.items;
-        this.totalCount = data.totalCount;
+        this.dataApi = data.items;
+        this.fullData = [...this.dataApi];
+        this.totalCount = this.fullData.length;
+        this.pageIndex = 1;
         this.sliceData();
         this.loading = false;
       },
@@ -65,6 +58,32 @@ export class DepartmentsComponent {
       },
     });
   }
+
+  // loadDataApi() {
+  //   this.httpClient.getDepartments().subscribe({
+  //     next: (data) => {
+  //       // console.log('data api: ' + data);
+  //       // const tamp: any = data;
+  //       // console.log('data api:', JSON.stringify(data, null, 2));
+  //       // this.dataApi = data;
+
+  //       // this.filteredData = [...this.dataApi];
+  //       // console.log('dtf: ' + this.filteredData);
+  //       // console.log('khoa: ' + JSON.stringify(this.filteredData, null, 2));
+
+  //       this.fullData = data.items;
+  //       this.totalCount = data.totalCount;
+  //       this.sliceData();
+  //       this.loading = false;
+  //     },
+  //     error: (error) => {
+  //       console.error('Lỗi khi tải danh sách khoa:', error);
+  //       this.error = 'Không thể tải danh sách khoa';
+  //       this.loading = false;
+  //       this.showNotification('Không thể tải danh sách khoa', 'error');
+  //     },
+  //   });
+  // }
 
   sliceData() {
     const start = (this.pageIndex - 1) * this.pageSize;
@@ -92,13 +111,39 @@ export class DepartmentsComponent {
   }
 
   filterData() {
-    const text = this.searchText.toLowerCase();
-    this.filteredData = this.dataApi.filter(
-      (item: Khoa) =>
-        item.tenKhoa?.toLowerCase().includes(text) ||
-        item.makhoa?.toLowerCase().includes(text)
-    );
+    const text = this.searchText.trim().toLowerCase();
+
+    if (!text) {
+      this.fullData = [...this.dataApi];
+    } else {
+      this.fullData = this.dataApi.filter((item: Khoa) => {
+        const ma = item.makhoa?.toLowerCase() || '';
+        const ten = item.tenKhoa?.toLowerCase() || '';
+        const moTa = item.mota?.toLowerCase() || '';
+        const trangThai = item.trangThai ? 'hoạt động' : 'ngừng hoạt động';
+
+        return (
+          ma.includes(text) ||
+          ten.includes(text) ||
+          moTa.includes(text) ||
+          trangThai.includes(text)
+        );
+      });
+    }
+
+    this.totalCount = this.fullData.length;
+    this.pageIndex = 1;
+    this.sliceData();
   }
+
+  // filterData() {
+  //   const text = this.searchText.toLowerCase();
+  //   this.filteredData = this.dataApi.filter(
+  //     (item: Khoa) =>
+  //       item.tenKhoa?.toLowerCase().includes(text) ||
+  //       item.makhoa?.toLowerCase().includes(text)
+  //   );
+  // }
 
   createKhoa() {
     const dialogRef = this.dialog.open(CreateKhoaComponent, {
