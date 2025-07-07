@@ -295,9 +295,32 @@ export class StudentsComponent implements OnInit {
   }
 
   updateSinhVien(sinhVien: SinhVien) {
+    if (!sinhVien.trangThai) {
+      const confirmRestore = confirm(
+        'Sinh viên này đã bị xóa. Bạn có muốn khôi phục để tiếp tục chỉnh sửa không?'
+      );
+      if (confirmRestore) {
+        this.httpClient.restoreSinhVienById(sinhVien.tenDangNhap).subscribe({
+          next: () => {
+            sinhVien.trangThai = true;
+            this.openUpdateDialog(sinhVien);
+          },
+          error: (err) => {
+            console.error('Lỗi khi khôi phục sinh viên:', err);
+            alert('Khôi phục thất bại!');
+          },
+        });
+      }
+    } else {
+      this.openUpdateDialog(sinhVien);
+    }
+  }
+
+  private openUpdateDialog(sinhVien: SinhVien) {
     const dialogRef = this.dialog.open(UpdateSinhVienComponent, {
       data: { SinhVien: sinhVien },
     });
+
     dialogRef.afterClosed().subscribe((result) => {
       if (result) this.loadDataApi();
     });

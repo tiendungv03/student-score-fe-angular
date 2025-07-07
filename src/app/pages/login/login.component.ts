@@ -43,8 +43,8 @@ export class LoginComponent {
 
     const studentId: string = this.loginForm.get('studentId')?.value;
     const password: string = this.loginForm.get('password')?.value;
-    console.log('Đăng nhập với mã sinh viên:', studentId);
-    console.log('Mật khẩu:', password);
+    // console.log('Đăng nhập với mã sinh viên:', studentId);
+    // console.log('Mật khẩu:', password);
 
     if (typeof studentId !== 'string' || typeof password !== 'string') {
       this.showNotification('Vui lòng nhập đầy đủ thông tin.', 'warn');
@@ -76,9 +76,9 @@ export class LoginComponent {
             'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
           ];
 
-        console.log('Decoded token:', decodedToken);
-        console.log('User name:', userName);
-        console.log('User role:', userRole);
+        // console.log('Decoded token:', decodedToken);
+        // console.log('User name:', userName);
+        // console.log('User role:', userRole);
 
         // Lưu token và role
         this.authService.setToken(token);
@@ -117,10 +117,10 @@ export class LoginComponent {
         provider
       );
       const idToken = await result.user.getIdToken();
-      console.log('idtoken:', idToken);
+      // console.log('idtoken:', idToken);
 
       const decodedToken: any = jwtDecode(idToken);
-      console.log('✅ Firebase ID Token đã decode:', decodedToken);
+      // console.log('Firebase ID Token đã decode:', decodedToken);
 
       this.firebaseService.firebaseLogin(idToken).subscribe({
         next: (response) => {
@@ -160,13 +160,13 @@ export class LoginComponent {
           }
         },
         error: (err) => {
-          console.error('❌ Lỗi xác thực với Firebase:', err);
+          console.error(' Lỗi xác thực với Firebase:', err);
           this.showNotification('Đăng nhập Google thất bại!', 'error');
         },
       });
     } catch (error: any) {
       if (error.code === 'auth/cancelled-popup-request') {
-        console.warn('⚠️ Đã huỷ popup cũ!');
+        console.warn('Đã huỷ popup cũ!');
       } else {
         console.error('Lỗi Google login:', error);
         this.showNotification('Không thể đăng nhập với Google!', 'error');

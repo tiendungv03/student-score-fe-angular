@@ -90,6 +90,11 @@ export class HttpClientApiService {
     return this.http.delete<any>(url, this.getHttpOptions());
   }
 
+  private restoreById(keyUrlApi: string, id: string): Observable<any> {
+    const url = `${this.apiUrl}/${keyUrlApi}/${id}`;
+    return this.http.post<any>(url, null, this.getHttpOptions());
+  }
+
   // ========== Tài khoản ==========
   getAccounts(): Observable<any> {
     return this.get(this.adminGetTaiKhoans);
@@ -105,6 +110,11 @@ export class HttpClientApiService {
 
   deleteAccount(id: string): Observable<any> {
     return this.delete(this.adminGetTaiKhoans, id);
+  }
+
+  restoreTaiKhoanById(tenDangNhap: string): Observable<any> {
+    const keyUrlApi = `admin/TaiKhoans/restore`;
+    return this.restoreById(keyUrlApi, tenDangNhap);
   }
 
   // ========== Phân quyền ==========
@@ -130,6 +140,7 @@ export class HttpClientApiService {
   }
 
   // ========== Sinh viên ==========
+
   getStudents(): Observable<any> {
     return this.get(this.adminGetKeySinhViens);
   }
@@ -148,6 +159,11 @@ export class HttpClientApiService {
 
   deleteStudent(tenDangNhap: string): Observable<any> {
     return this.delete(this.adminGetKeySinhViens, tenDangNhap);
+  }
+
+  restoreSinhVienById(tenDangNhap: string): Observable<any> {
+    const keyUrlApi = `admin/SinhViens/restore`;
+    return this.restoreById(keyUrlApi, tenDangNhap);
   }
 
   // ========== Giảng viên ==========

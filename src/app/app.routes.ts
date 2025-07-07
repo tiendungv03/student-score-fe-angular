@@ -154,6 +154,7 @@ export const routes: Routes = [
   {
     path: '',
     canActivate: [authGuard],
+
     loadComponent: () =>
       import('./pages/student/student-layout/student-layout.component').then(
         (m) => m.StudentLayoutComponent

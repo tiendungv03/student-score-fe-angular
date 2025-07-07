@@ -5,11 +5,13 @@ import { CommonModule } from '@angular/common';
   selector: 'app-teachers-layout',
   imports: [RouterLink, RouterModule, RouterOutlet, CommonModule],
   templateUrl: './teachers-layout.component.html',
-  styleUrl: './teachers-layout.component.scss'
+  styleUrl: './teachers-layout.component.scss',
 })
 export class TeachersLayoutComponent {
-    userRole: string | null = localStorage.getItem('userRole');
-    isSidebarClosed = false;
+  userRole: string | null = localStorage.getItem('userRole');
+  userName: string | null = localStorage.getItem('userName');
+
+  isSidebarClosed = false;
 
   toggleSidebar() {
     this.isSidebarClosed = !this.isSidebarClosed;

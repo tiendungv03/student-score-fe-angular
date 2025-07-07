@@ -160,7 +160,29 @@ export class AccountsComponent {
     });
   }
 
-  updateAccount(account?: TaiKhoan) {
+  updateAccount(account: TaiKhoan) {
+    if (!account.trangThai) {
+      const confirmRestore = confirm(
+        'Sinh viên này đã bị xóa. Bạn có muốn khôi phục để tiếp tục chỉnh sửa không?'
+      );
+      if (confirmRestore) {
+        this.httpClient.restoreSinhVienById(account.tenDangNhap).subscribe({
+          next: () => {
+            account.trangThai = true;
+            this.openUpdateDialog(account);
+          },
+          error: (err) => {
+            console.error('Lỗi khi khôi phục sinh viên:', err);
+            alert('Khôi phục thất bại!');
+          },
+        });
+      }
+    } else {
+      this.openUpdateDialog(account);
+    }
+  }
+
+  private openUpdateDialog(account?: TaiKhoan) {
     const dialogRef = this.dialog.open(UpdateAccountComponent, {
       data: { account },
     });
